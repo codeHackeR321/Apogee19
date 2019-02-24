@@ -2,6 +2,8 @@ package com.anenigmatic.apogee19.screens.events.core
 
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * Represents an event in APOGEE.
@@ -11,8 +13,9 @@ import org.threeten.bp.LocalTime
  * @property duration  is event's  duration in minutes.
  * @property isStarred  tells whether the user has starred/bookmarked/favorited the event.
  * */
+@Entity(tableName = "Events")
 data class Event(
-    val id: Long,
+    @PrimaryKey val id: Long,
     val name: String,
     val type: String,
     val spot: String,
