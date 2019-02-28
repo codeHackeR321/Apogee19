@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootPOV"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gd_vio01_vio02">
+
+    <ImageView
+        android:id="@+id/backgroundPatternIMG"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ll_background_pattern" />
+
+    <TextView
+        android:id="@+id/screenTitleLBL"
+        style="@style/ScreenTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="24dp"
+        android:text="Events"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/squigglyLineIMG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
+        android:tint="@color/pnk01"
+        app:layout_constraintStart_toStartOf="@+id/screenTitleLBL"
+        app:layout_constraintTop_toBottomOf="@+id/screenTitleLBL"
+        app:srcCompat="@drawable/ic_wiggly_line" />
+
+    <EditText
+        android:id="@+id/searchTXT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/sh_rounded_rectangle_08dp"
+        android:backgroundTint="@color/vio03"
+        android:ems="10"
+        android:hint="Search Events"
+        android:inputType="textPersonName"
+        android:paddingStart="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:textColor="@color/vio04"
+        android:textColorHint="@color/vio04"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/filterBTN"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/squigglyLineIMG" />
+
+    <ImageView
+        android:id="@+id/filterBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/sh_rounded_rectangle_08dp"
+        android:backgroundTint="@color/pnk01"
+        android:padding="8dp"
+        android:tint="@color/wht01"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTXT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/searchTXT"
+        app:srcCompat="@drawable/ic_filter" />
+
+    <TextView
+        android:id="@+id/day0BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/google_sans_bold"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
+        android:text="Day 0"
+        android:textColor="@color/vio06"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/day1BTN"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchTXT" />
+
+    <TextView
+        android:id="@+id/day1BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/google_sans_bold"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
+        android:text="Day 1"
+        android:textColor="@color/vio06"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/day0BTN"
+        app:layout_constraintEnd_toStartOf="@+id/day2BTN"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/day0BTN"
+        app:layout_constraintTop_toTopOf="@+id/day0BTN" />
+
+    <TextView
+        android:id="@+id/day2BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/google_sans_bold"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
+        android:text="Day 2"
+        android:textColor="@color/vio06"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/day1BTN"
+        app:layout_constraintEnd_toStartOf="@+id/day3BTN"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/day1BTN"
+        app:layout_constraintTop_toTopOf="@+id/day1BTN" />
+
+    <TextView
+        android:id="@+id/day3BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/google_sans_bold"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
+        android:text="Day 3"
+        android:textColor="@color/vio06"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/day2BTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/day2BTN"
+        app:layout_constraintTop_toTopOf="@+id/day2BTN" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/eventsVPG"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/day0BTN" />
+
+    <ProgressBar
+        android:id="@+id/loaderPBR"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/vio07"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventsVPG" />
+
+    <TextView
+        android:id="@+id/errorMessageLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/vio07"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventsVPG"
+        tools:text="Not connected to internet" />
+
+    <TextView
+        android:id="@+id/retryBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/sh_rounded_rectangle_08dp"
+        android:backgroundTint="@color/vio07"
+        android:fontFamily="@font/google_sans_medium"
+        android:paddingStart="36dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="36dp"
+        android:paddingBottom="12dp"
+        android:text="Retry"
+        android:textColor="@color/pnk01"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/errorMessageLBL"
+        app:layout_constraintStart_toStartOf="@+id/errorMessageLBL"
+        app:layout_constraintTop_toBottomOf="@+id/errorMessageLBL" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,4 +11,26 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
+    <style name="ScreenTitle">
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:textColor">@color/wht01</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="FilterButton">
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="InactiveFilterButton" parent="FilterButton">
+        <item name="android:textColor">@color/vio07</item>
+    </style>
+
+    <style name="ActiveFilterButton" parent="FilterButton">
+        <item name="android:textColor">@color/pnk01</item>
+    </style>
+
 </resources>

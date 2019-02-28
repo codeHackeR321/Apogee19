@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nameLBL"
+    style="@style/InactiveFilterButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/sh_rounded_rectangle_outline_08dp"
+    android:ellipsize="end"
+    android:lines="1"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    tools:text="SR Grounds" />

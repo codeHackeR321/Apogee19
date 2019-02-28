@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootPOV"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sh_rounded_rectangle_08dp"
+    android:backgroundTint="@color/wht01"
+    android:maxWidth="340dp"
+    android:minWidth="320dp"
+    android:minHeight="460dp">
+
+    <TextView
+        android:id="@+id/nameLBL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="56dp"
+        android:fontFamily="@font/google_sans_bold"
+        android:textAlignment="center"
+        android:textColor="@color/vio07"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="The Starry Night" />
+
+    <TextView
+        android:id="@+id/infoLBL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/vio07"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameLBL"
+        tools:text="SAT 2 PM, NAB 6162" />
+
+    <TextView
+        android:id="@+id/typeLBL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/gry01"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoLBL"
+        tools:text="(CATEGORIES: LAUGHTER, LASSOON)" />
+
+    <ImageView
+        android:id="@+id/closeBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:padding="12dp"
+        android:tint="@color/vio07"
+        app:layout_constraintBottom_toBottomOf="@+id/nameLBL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nameLBL"
+        app:srcCompat="@drawable/ic_close" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/typeLBL"
+        app:layout_constraintStart_toStartOf="@+id/typeLBL"
+        app:layout_constraintTop_toBottomOf="@+id/typeLBL">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/google_sans_medium"
+                android:text="Description"
+                android:textColor="@color/gry01"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/aboutLBL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textAlignment="center"
+                android:textColor="@color/gry02"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vehicula tortor neque, ac elementum sem laoreet eget. Vestibulum purus nunc, fermentum et blandit a, posuere non diam. Etiam ac lectus maximus, congue risus in, tristique lacus. Praesent a magna at magna pulvinar semper. Sed id justo magna. Phasellus id vulputate dui. Curabitur ut felis fringilla, iaculis mi ac, hendrerit eros." />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/google_sans_medium"
+                android:text="Rules"
+                android:textColor="@color/gry01"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/aboutLBL" />
+
+            <TextView
+                android:id="@+id/rulesLBL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textAlignment="center"
+                android:textColor="@color/gry02"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/aboutLBL"
+                app:layout_constraintStart_toStartOf="@+id/aboutLBL"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                tools:text="Mauris dolor lacus, efficitur quis pellentesque condimentum, aliquet id risus. Mauris a justo justo. Donec ut ipsum est. In tincidunt vitae eros et tempus. Nunc sollicitudin ullamcorper ligula et molestie. Quisque congue vehicula velit id tempus. Suspendisse ut magna eu nulla mattis fringilla sed sed neque. Nulla vestibulum justo ut enim bibendum posuere." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
