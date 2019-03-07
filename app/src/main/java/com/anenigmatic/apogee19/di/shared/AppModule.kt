@@ -5,9 +5,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.anenigmatic.apogee19.screens.events.data.room.EventsDao
+import com.anenigmatic.apogee19.screens.shared.data.retrofit.BaseInterceptor
 import com.anenigmatic.apogee19.screens.shared.data.room.AppDatabase
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -17,6 +22,17 @@ class AppModule(private val application: Application) {
     @Provides
     fun providesEventsDao(appDatabase: AppDatabase): EventsDao {
         return appDatabase.getEventsDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://bits-apogee.org/")
+            .client(OkHttpClient().newBuilder().addInterceptor(BaseInterceptor()).build())
+            .addConverterFactory(MoshiConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
     }
 
     @Singleton
