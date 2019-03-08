@@ -1,5 +1,6 @@
 package com.anenigmatic.apogee19.di.events
 
+import com.anenigmatic.apogee19.screens.events.core.EventDetailsViewModelFactory
 import com.anenigmatic.apogee19.screens.events.core.EventListViewModelFactory
 import dagger.Subcomponent
 
@@ -7,4 +8,6 @@ import dagger.Subcomponent
 interface EventsComponent {
 
     fun inject(factory: EventListViewModelFactory)
+
+    fun inject(factory: EventDetailsViewModelFactory)
 }
