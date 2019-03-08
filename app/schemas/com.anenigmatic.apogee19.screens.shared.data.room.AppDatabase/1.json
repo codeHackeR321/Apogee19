@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "15e7c701f5bcf26a8d4bc2b5822c5bc6",
+    "identityHash": "157d27b1657d58c8d1e3ec598408f551",
     "entities": [
       {
         "tableName": "Events",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `type` TEXT NOT NULL, `spot` TEXT NOT NULL, `about` TEXT NOT NULL, `rules` TEXT NOT NULL, `date` TEXT NOT NULL, `time` TEXT NOT NULL, `duration` INTEGER NOT NULL, `isStarred` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `types` TEXT NOT NULL, `spots` TEXT NOT NULL, `about` TEXT NOT NULL, `rules` TEXT NOT NULL, `date` TEXT NOT NULL, `time` TEXT NOT NULL, `duration` INTEGER NOT NULL, `isStarred` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,14 +21,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "type",
-            "columnName": "type",
+            "fieldPath": "types",
+            "columnName": "types",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "spot",
-            "columnName": "spot",
+            "fieldPath": "spots",
+            "columnName": "spots",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -82,7 +82,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"15e7c701f5bcf26a8d4bc2b5822c5bc6\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"157d27b1657d58c8d1e3ec598408f551\")"
     ]
   }
 }

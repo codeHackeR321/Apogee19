@@ -13,22 +13,22 @@ interface EventsDao {
     @Query("SELECT * FROM Events ORDER BY date ASC, time ASC")
     fun getAllEvents(): Flowable<List<Event>>
 
-    @Query("SELECT * FROM Events WHERE type = :type ORDER BY date ASC, time ASC")
+    @Query("SELECT * FROM Events WHERE types LIKE '%' || :type || '%' ORDER BY date ASC, time ASC")
     fun getAllEventsOfType(type: String): Flowable<List<Event>>
 
-    @Query("SELECT * FROM Events WHERE spot = :spot ORDER BY date ASC, time ASC")
+    @Query("SELECT * FROM Events WHERE spots LIKE '%' || :spot || '%' ORDER BY date ASC, time ASC")
     fun getAllEventsOnSpot(spot: String): Flowable<List<Event>>
 
-    @Query("SELECT * FROM Events WHERE type = :type AND spot = :spot ORDER BY date ASC, time ASC")
+    @Query("SELECT * FROM Events WHERE types LIKE '%' || :type || '%' AND spots LIKE '%' || :spot || '%' ORDER BY date ASC, time ASC")
     fun getAllEventsOfTypeOnSpot(type: String, spot: String): Flowable<List<Event>>
 
     @Query("SELECT * FROM Events WHERE id = :id")
     fun getEventById(id: Long): Flowable<Event>
 
-    @Query("SELECT DISTINCT type FROM Events")
+    @Query("SELECT DISTINCT types FROM Events")
     fun getAllEventTypes(): Flowable<List<String>>
 
-    @Query("SELECT DISTINCT spot FROM Events")
+    @Query("SELECT DISTINCT spots FROM Events")
     fun getAllEventSpots(): Flowable<List<String>>
 
     @Query("SELECT id FROM Events")

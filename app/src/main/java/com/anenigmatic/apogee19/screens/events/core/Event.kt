@@ -8,17 +8,17 @@ import androidx.room.PrimaryKey
 /**
  * Represents an event in APOGEE.
  *
- * @property type  is the type(category)  of the event.
- * @property spot  is the spot where event will happen.
- * @property duration  is event's  duration in minutes.
+ * @property types  are the types(categories) of the event.
+ * @property spots  are the spots where  event will happen.
+ * @property duration  is duration of the event in minutes.
  * @property isStarred  tells whether the user has starred/bookmarked/favorited the event.
  * */
 @Entity(tableName = "Events")
 data class Event(
     @PrimaryKey val id: Long,
     val name: String,
-    val type: String,
-    val spot: String,
+    val types: Set<String>,
+    val spots: Set<String>,
     val about: String,
     val rules: String,
     val date: LocalDate,

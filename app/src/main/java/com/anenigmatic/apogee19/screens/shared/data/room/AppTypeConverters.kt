@@ -7,6 +7,16 @@ import org.threeten.bp.LocalTime
 class AppTypeConverters {
 
     @TypeConverter
+    fun fromSetToString(set: Set<String>): String {
+        return set.joinToString("<|>")
+    }
+
+    @TypeConverter
+    fun fromStringToSet(str: String): Set<String> {
+        return str.split("<|>").toSet()
+    }
+
+    @TypeConverter
     fun fromLocalDateToString(ldt: LocalDate): String {
         return ldt.toString()
     }

@@ -39,7 +39,7 @@ class EventsAdapter(private val listener: ClickListener) : ListAdapter<Event, Ev
         val dayName = event.date.dayOfWeek.name.take(3).toUpperCase()
         val time = event.time.format(DateTimeFormatter.ofPattern("hh:mm a"))
 
-        holder.infoLBL.text = "$dayName $time, ${event.spot}"
+        holder.infoLBL.text = "$dayName $time, ${event.spots.joinToString(", ")}"
 
         when(event.isStarred) {
             true  -> {
@@ -79,7 +79,7 @@ class EventsAdapter(private val listener: ClickListener) : ListAdapter<Event, Ev
         override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean {
             return oldItem.id == newItem.id &&
                     oldItem.name == newItem.name &&
-                    oldItem.spot == newItem.spot &&
+                    oldItem.spots == newItem.spots &&
                     oldItem.date == newItem.date &&
                     oldItem.time == newItem.time &&
                     oldItem.isStarred == newItem.isStarred

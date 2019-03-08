@@ -53,10 +53,16 @@ class EventRepositoryImpl(private val fStorage: FilterStorage, private val eDao:
 
     override fun getAllEventTypes(): Flowable<List<String>> {
         return eDao.getAllEventTypes()
+            .map { joinedTypes ->
+                joinedTypes.map { joinedType -> joinedType.split("<|>") }.flatten().distinct()
+            }
     }
 
     override fun getAllEventSpots(): Flowable<List<String>> {
         return eDao.getAllEventSpots()
+            .map { joinedTypes ->
+                joinedTypes.map { joinedType -> joinedType.split("<|>") }.flatten().distinct()
+            }
     }
 
     override fun getFilter(): Flowable<Filter> {
