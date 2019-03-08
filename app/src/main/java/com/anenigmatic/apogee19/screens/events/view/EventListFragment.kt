@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -88,7 +89,8 @@ class EventListFragment : Fragment(), EventsViewPagerAdapter.ClickListener {
     }
 
     override fun onEventClicked(id: Long) {
-
+        EventDetailsDialog().apply { arguments = bundleOf("EVENT_ID" to id) }
+            .show(childFragmentManager, "EventDetailsDialog")
     }
 
     override fun onEventStarred(id: Long, value: Boolean) {
