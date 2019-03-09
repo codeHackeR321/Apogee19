@@ -40,6 +40,10 @@ class EventListFragment : Fragment(), EventsViewPagerAdapter.ClickListener {
 
         rootPOV.eventsVPG.adapter = EventsViewPagerAdapter(this)
 
+        rootPOV.filterBTN.setOnClickListener {
+            FilterMenuDialog().show(childFragmentManager, "FilterMenuDialog")
+        }
+
         rootPOV.day0BTN.setOnClickListener {
             rootPOV.eventsVPG.setCurrentItem(0, true)
         }
