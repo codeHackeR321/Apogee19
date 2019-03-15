@@ -4,7 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import com.anenigmatic.apogee19.screens.events.data.EventRepository
+import com.anenigmatic.apogee19.screens.events.data.EventRepositoryImpl
 import com.anenigmatic.apogee19.screens.events.data.room.EventsDao
+import com.anenigmatic.apogee19.screens.events.data.storage.FilterStorage
+import com.anenigmatic.apogee19.screens.events.data.storage.FilterStorageImpl
 import com.anenigmatic.apogee19.screens.shared.data.retrofit.BaseInterceptor
 import com.anenigmatic.apogee19.screens.shared.data.room.AppDatabase
 import dagger.Module
@@ -20,8 +24,20 @@ class AppModule(private val application: Application) {
 
     @Singleton
     @Provides
+    fun providesEventRepository(filterStorage: FilterStorage, eventsDao: EventsDao): EventRepository {
+        return EventRepositoryImpl(filterStorage, eventsDao)
+    }
+
+    @Singleton
+    @Provides
     fun providesEventsDao(appDatabase: AppDatabase): EventsDao {
         return appDatabase.getEventsDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesFilterStorage(sharedPreferences: SharedPreferences): FilterStorage {
+        return FilterStorageImpl(sharedPreferences)
     }
 
     @Singleton

@@ -5,7 +5,7 @@ import com.anenigmatic.apogee19.screens.events.core.EventFilterViewModelFactory
 import com.anenigmatic.apogee19.screens.events.core.EventListViewModelFactory
 import dagger.Subcomponent
 
-@Subcomponent(modules = [EventsModule::class])
+@Subcomponent
 interface EventsComponent {
 
     fun inject(factory: EventListViewModelFactory)
