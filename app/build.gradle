@@ -42,6 +42,10 @@ dependencies {
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
 
+    def rxbindings_version = "3.0.0-alpha2"
+    implementation "com.jakewharton.rxbinding3:rxbinding-core:$rxbindings_version"
+    implementation "com.jakewharton.rxbinding3:rxbinding-appcompat:$rxbindings_version"
+
     def lifecycle_version = "2.0.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"

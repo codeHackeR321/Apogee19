@@ -16,8 +16,12 @@ import com.anenigmatic.apogee19.screens.events.core.Event
 import com.anenigmatic.apogee19.screens.events.core.EventListViewModel
 import com.anenigmatic.apogee19.screens.events.core.EventListViewModel.UiOrder
 import com.anenigmatic.apogee19.screens.events.core.EventListViewModelFactory
+import com.anenigmatic.apogee19.screens.shared.util.set
+import com.jakewharton.rxbinding3.widget.textChanges
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fra_event_list.view.*
 import org.threeten.bp.LocalDate
+import java.util.concurrent.TimeUnit
 
 class EventListFragment : Fragment(), EventsViewPagerAdapter.ClickListener {
 
@@ -35,10 +39,24 @@ class EventListFragment : Fragment(), EventsViewPagerAdapter.ClickListener {
     }
 
 
+    private val d1 = CompositeDisposable()
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootPOV = inflater.inflate(R.layout.fra_event_list, container, false)
 
         rootPOV.eventsVPG.adapter = EventsViewPagerAdapter(this)
+
+        d1.set(rootPOV.searchTXT.textChanges()
+            .debounce(200, TimeUnit.MILLISECONDS)
+            .subscribe(
+                { query ->
+                    viewModel.onSearchTextChanged(query.toString())
+                },
+                {
+                    Toast.makeText(context, "An error occurred in event search", Toast.LENGTH_SHORT).show()
+                }
+            ))
 
         rootPOV.filterBTN.setOnClickListener {
             FilterDialog().show(childFragmentManager, "FilterMenuDialog")
@@ -103,6 +121,7 @@ class EventListFragment : Fragment(), EventsViewPagerAdapter.ClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        d1.clear()
         view?.let { view ->
             view.eventsVPG.unregisterOnPageChangeCallback(pageChangeCallback)
         }
