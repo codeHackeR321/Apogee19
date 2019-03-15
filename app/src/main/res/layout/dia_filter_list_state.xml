@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootPOV"
+    android:layout_width="320dp"
+    android:layout_height="460dp"
+    android:background="@drawable/sh_rounded_rectangle_08dp"
+    android:backgroundTint="@color/wht01"
+    android:minHeight="460dp">
+
+
+    <TextView
+        android:id="@+id/dialogTitleLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/google_sans_bold"
+        android:textAllCaps="true"
+        android:textColor="@color/vio07"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Venues" />
+
+    <ImageView
+        android:id="@+id/closeBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:padding="12dp"
+        android:tint="@color/vio07"
+        app:layout_constraintBottom_toBottomOf="@+id/dialogTitleLBL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dialogTitleLBL"
+        app:srcCompat="@drawable/ic_close" />
+
+    <TextView
+        android:id="@+id/showSpotFiltersBTN"
+        style="@style/InactiveFilterButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/sh_rounded_rectangle_outline_08dp"
+        android:text="Venue"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/showOnlyStarredToggleBTN"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/showOnlyStarredToggleBTN"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitleLBL" />
+
+    <TextView
+        android:id="@+id/showTypeFiltersBTN"
+        style="@style/InactiveFilterButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/sh_rounded_rectangle_outline_08dp"
+        android:text="Category"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/showOnlyStarredToggleBTN"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/showOnlyStarredToggleBTN"
+        app:layout_constraintTop_toBottomOf="@+id/showSpotFiltersBTN" />
+
+    <TextView
+        android:id="@+id/showOnlyStarredToggleBTN"
+        style="@style/InactiveFilterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="72dp"
+        android:background="@drawable/sh_rounded_rectangle_outline_08dp"
+        android:paddingStart="56dp"
+        android:paddingEnd="56dp"
+        android:text="Bookmarks"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showTypeFiltersBTN" />
+
+    <TextView
+        android:id="@+id/showOnlyOngoingToggleBTN"
+        style="@style/InactiveFilterButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/sh_rounded_rectangle_outline_08dp"
+        android:text="Ongoing"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/showOnlyStarredToggleBTN"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/showOnlyStarredToggleBTN"
+        app:layout_constraintTop_toBottomOf="@+id/showOnlyStarredToggleBTN" />
+
+    <ImageView
+        android:id="@+id/backBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:padding="12dp"
+        android:tint="@color/vio07"
+        app:layout_constraintBottom_toBottomOf="@+id/dialogTitleLBL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dialogTitleLBL"
+        app:srcCompat="@drawable/ic_back" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/typeFiltersRCY"
+        android:layout_width="180dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="72dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitleLBL"
+        tools:listitem="@layout/row_filter" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/spotFiltersRCY"
+        android:layout_width="180dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="72dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitleLBL"
+        tools:listitem="@layout/row_filter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

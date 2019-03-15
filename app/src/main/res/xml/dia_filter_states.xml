@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConstraintLayoutStates xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <State
+        android:id="@+id/menuState"
+        app:constraints="@layout/dia_filter_menu_state" />
+
+    <State
+        android:id="@+id/listState"
+        app:constraints="@layout/dia_filter_list_state" />
+
+</ConstraintLayoutStates>
