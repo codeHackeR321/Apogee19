@@ -6,6 +6,7 @@ import com.anenigmatic.apogee19.screens.events.data.retrofit.EventResponse
 import com.anenigmatic.apogee19.screens.events.data.retrofit.EventsApi
 import com.anenigmatic.apogee19.screens.events.data.room.EventsDao
 import com.anenigmatic.apogee19.screens.events.data.storage.FilterStorage
+import com.anenigmatic.apogee19.screens.shared.util.NetworkDetails
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import org.threeten.bp.LocalDateTime
@@ -19,7 +20,8 @@ import org.threeten.bp.LocalDateTime
 class EventRepositoryImpl(
     private val fStorage: FilterStorage,
     private val eDao: EventsDao,
-    private val eApi: EventsApi
+    private val eApi: EventsApi,
+    private val networkDetails: NetworkDetails
 ) : EventRepository {
 
     private enum class FetchStatus {
@@ -61,7 +63,14 @@ class EventRepositoryImpl(
             .doOnError { fetchStatus = FetchStatus.Failed }
             .andThen(localSource)
 
-        return if(fetchStatus.shouldAttemptToFetch()) { freshSource } else { localSource }
+        return Flowable.fromCallable { eDao.getEventCount() }
+            .flatMap { count ->
+                if(count == 0 || (fetchStatus.shouldAttemptToFetch() && networkDetails.isConnectedToInternet())) {
+                    freshSource
+                } else {
+                    localSource
+                }
+            }
     }
 
     override fun getEventById(id: Long): Flowable<Event> {

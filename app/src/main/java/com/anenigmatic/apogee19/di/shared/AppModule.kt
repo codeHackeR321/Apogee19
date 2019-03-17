@@ -12,6 +12,7 @@ import com.anenigmatic.apogee19.screens.events.data.storage.FilterStorage
 import com.anenigmatic.apogee19.screens.events.data.storage.FilterStorageImpl
 import com.anenigmatic.apogee19.screens.shared.data.retrofit.BaseInterceptor
 import com.anenigmatic.apogee19.screens.shared.data.room.AppDatabase
+import com.anenigmatic.apogee19.screens.shared.util.NetworkDetails
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -25,8 +26,8 @@ class AppModule(private val application: Application) {
 
     @Singleton
     @Provides
-    fun providesEventRepository(filterStorage: FilterStorage, eventsDao: EventsDao, eventsApi: EventsApi): EventRepository {
-        return EventRepositoryImpl(filterStorage, eventsDao, eventsApi)
+    fun providesEventRepository(filterStorage: FilterStorage, eventsDao: EventsDao, eventsApi: EventsApi, networkDetails: NetworkDetails): EventRepository {
+        return EventRepositoryImpl(filterStorage, eventsDao, eventsApi, networkDetails)
     }
 
     @Singleton
@@ -45,6 +46,12 @@ class AppModule(private val application: Application) {
     @Provides
     fun providesFilterStorage(sharedPreferences: SharedPreferences): FilterStorage {
         return FilterStorageImpl(sharedPreferences)
+    }
+
+    @Singleton
+    @Provides
+    fun providesNetworkDetails(application: Application): NetworkDetails {
+        return NetworkDetails(application)
     }
 
     @Singleton
