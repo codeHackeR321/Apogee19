@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.anenigmatic.apogee19.screens.events.data.EventRepository
 import com.anenigmatic.apogee19.screens.events.data.EventRepositoryImpl
+import com.anenigmatic.apogee19.screens.events.data.retrofit.EventsApi
 import com.anenigmatic.apogee19.screens.events.data.room.EventsDao
 import com.anenigmatic.apogee19.screens.events.data.storage.FilterStorage
 import com.anenigmatic.apogee19.screens.events.data.storage.FilterStorageImpl
@@ -24,8 +25,14 @@ class AppModule(private val application: Application) {
 
     @Singleton
     @Provides
-    fun providesEventRepository(filterStorage: FilterStorage, eventsDao: EventsDao): EventRepository {
-        return EventRepositoryImpl(filterStorage, eventsDao)
+    fun providesEventRepository(filterStorage: FilterStorage, eventsDao: EventsDao, eventsApi: EventsApi): EventRepository {
+        return EventRepositoryImpl(filterStorage, eventsDao, eventsApi)
+    }
+
+    @Singleton
+    @Provides
+    fun providesEventsApi(retrofit: Retrofit): EventsApi {
+        return retrofit.create(EventsApi::class.java)
     }
 
     @Singleton
