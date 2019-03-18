@@ -18,4 +18,6 @@
     <color name="vio08">#FFF0E3FF</color>
     <color name="wht01">#FFFFFFFF</color>
     <color name="wht02">#28FFFFFF</color>
+    <color name="yel01">#FFFFE0AC</color>
+    <color name="yel02">#FFEA9144</color>
 </resources>

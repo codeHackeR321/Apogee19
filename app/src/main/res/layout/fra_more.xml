@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootPOV"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gd_yel01_yel02">
+
+    <ImageView
+        android:id="@+id/backgroundPatternIMG"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ll_background_pattern" />
+
+    <TextView
+        android:id="@+id/showContactsBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Contact Us"
+        android:textColor="@color/wht01"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/showAboutBTN"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/showAboutBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="About"
+        android:textColor="@color/wht01"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/showDevelopersBTN"
+        app:layout_constraintStart_toStartOf="@+id/showContactsBTN"
+        app:layout_constraintTop_toBottomOf="@+id/showContactsBTN" />
+
+    <TextView
+        android:id="@+id/showDevelopersBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Developers"
+        android:textColor="@color/wht01"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/showMapBTN"
+        app:layout_constraintStart_toStartOf="@+id/showAboutBTN"
+        app:layout_constraintTop_toBottomOf="@+id/showAboutBTN" />
+
+    <TextView
+        android:id="@+id/showMapBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Map"
+        android:textColor="@color/wht01"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/showN2oVotingBTN"
+        app:layout_constraintStart_toStartOf="@+id/showDevelopersBTN"
+        app:layout_constraintTop_toBottomOf="@+id/showDevelopersBTN" />
+
+    <TextView
+        android:id="@+id/showN2oVotingBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="N2O Voting"
+        android:textColor="@color/wht01"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/showNotificationsBTN"
+        app:layout_constraintStart_toStartOf="@+id/showMapBTN"
+        app:layout_constraintTop_toBottomOf="@+id/showMapBTN" />
+
+    <TextView
+        android:id="@+id/showNotificationsBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Notifications"
+        android:textColor="@color/wht01"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/showEpcBlogBTN"
+        app:layout_constraintStart_toStartOf="@+id/showN2oVotingBTN"
+        app:layout_constraintTop_toBottomOf="@+id/showN2oVotingBTN" />
+
+    <TextView
+        android:id="@+id/showEpcBlogBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/google_sans_medium"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="EPC Blog"
+        android:textColor="@color/wht01"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/showNotificationsBTN"
+        app:layout_constraintTop_toBottomOf="@+id/showNotificationsBTN" />
+</androidx.constraintlayout.widget.ConstraintLayout>
