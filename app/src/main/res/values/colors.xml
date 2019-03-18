@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="blk01">#FF000000</color>
     <color name="gry01">#FF858585</color>
     <color name="gry02">#FFB1B1B1</color>
     <color name="pnk01">#FFEBA7FF</color>
