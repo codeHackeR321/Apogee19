@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.screens.events.view.EventListFragment
+import com.anenigmatic.apogee19.screens.more.view.MoreFragment
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import kotlinx.android.synthetic.main.act_main.*
@@ -60,7 +61,15 @@ class MainActivity : AppCompatActivity() {
                         // Since events screen is the root, we don't need to replace it here.
                     }
                     4 -> {
-                        Toast.makeText(this, "More", Toast.LENGTH_SHORT).show()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.navHostFRM, MoreFragment())
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss()
+
+                        bottomNavAHB.defaultBackgroundColor = ContextCompat.getColor(this, R.color.wht01)
+
+                        bottomNavAHB.accentColor = ContextCompat.getColor(this, R.color.yel02)
+                        bottomNavAHB.inactiveColor = ContextCompat.getColor(this, R.color.yel01)
                     }
                 }
             }
