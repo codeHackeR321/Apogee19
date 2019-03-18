@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         if(savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.rootPOV, EventListFragment())
+                .add(R.id.navHostFRM, EventListFragment())
                 .commitNow()
         }
 
