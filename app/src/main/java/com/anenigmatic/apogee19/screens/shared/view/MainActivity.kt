@@ -22,24 +22,27 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .add(R.id.navHostFRM, EventListFragment())
                 .commitNow()
-        }
 
-        setupBottomNavigation()
+            setupBottomNavigation(3)
+        } else {
+            setupBottomNavigation(savedInstanceState.getInt("BOTTOM_NAV_CURRENT_ITEM"))
+        }
+    }
+
+    override fun onSaveInstanceState(saveInstanceState: Bundle) {
+        super.onSaveInstanceState(saveInstanceState)
+
+        saveInstanceState.putInt("BOTTOM_NAV_CURRENT_ITEM", bottomNavAHB.currentItem)
     }
 
 
-    private fun setupBottomNavigation() {
+    private fun setupBottomNavigation(currentItem: Int) {
         val navigationAdapter = AHBottomNavigationAdapter(this, R.menu.mn_bottom_nav)
         navigationAdapter.setupWithBottomNavigation(bottomNavAHB)
 
-        bottomNavAHB.defaultBackgroundColor = ContextCompat.getColor(this, R.color.vio08)
-
-        bottomNavAHB.accentColor = ContextCompat.getColor(this, R.color.vio07)
-        bottomNavAHB.inactiveColor = ContextCompat.getColor(this, R.color.pnk01)
+        bottomNavAHB.defaultBackgroundColor = ContextCompat.getColor(this, R.color.wht01)
 
         bottomNavAHB.titleState = AHBottomNavigation.TitleState.ALWAYS_HIDE
-
-        bottomNavAHB.setCurrentItem(3, false)
 
         bottomNavAHB.setOnTabSelectedListener { position, wasSelected ->
 
@@ -58,15 +61,14 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, "Orders", Toast.LENGTH_SHORT).show()
                     }
                     3 -> {
-                        // Since events screen is the root, we don't need to replace it here.
+                        bottomNavAHB.accentColor = ContextCompat.getColor(this, R.color.vio07)
+                        bottomNavAHB.inactiveColor = ContextCompat.getColor(this, R.color.pnk01)
                     }
                     4 -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.navHostFRM, MoreFragment())
                             .addToBackStack(null)
                             .commitAllowingStateLoss()
-
-                        bottomNavAHB.defaultBackgroundColor = ContextCompat.getColor(this, R.color.wht01)
 
                         bottomNavAHB.accentColor = ContextCompat.getColor(this, R.color.yel02)
                         bottomNavAHB.inactiveColor = ContextCompat.getColor(this, R.color.yel01)
@@ -75,5 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        bottomNavAHB.setCurrentItem(currentItem, true)
     }
 }
