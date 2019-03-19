@@ -7,17 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 
-class MenuListAdapter(private var dataset :ArrayList<String>) : RecyclerView.Adapter<MenuListAdapter.MyViewHolder>() {
+class StallListAdapter(private var dataset :List<Stall>) : RecyclerView.Adapter<StallListAdapter.MyViewHolder>() {
 
     class MyViewHolder(val view: View): RecyclerView.ViewHolder(view){
 
         var nameLBL: TextView =view.findViewById(com.anenigmatic.apogee19.R.id.nameLBL)
 
-
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MenuListAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(com.anenigmatic.apogee19.R.layout.row_menu, parent,false) as View
         // set the view's size, margins, paddings and layout parameters
 
@@ -27,7 +27,7 @@ class MenuListAdapter(private var dataset :ArrayList<String>) : RecyclerView.Ada
     override fun getItemCount(): Int = dataset.size
 
 
-    override fun onBindViewHolder(holder: MenuListAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         /**
          * Since recycler view works in a way such that it only recycles the information that is displayed in the views
@@ -35,7 +35,7 @@ class MenuListAdapter(private var dataset :ArrayList<String>) : RecyclerView.Ada
          * the previous image
          */
 
-        holder.nameLBL.text =  dataset[position]
+        holder.nameLBL.text =  dataset[position].name
 
 
 
