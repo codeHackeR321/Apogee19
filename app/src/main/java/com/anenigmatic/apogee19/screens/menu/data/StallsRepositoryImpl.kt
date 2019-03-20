@@ -17,7 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class StallsRepositoryImpl : StallsRepository
 {
-
+    lateinit var currentcontext :Context
+    lateinit var database : StallsAndMenuDataBase
 
     @Volatile
     private var sSoleInstance: StallsRepositoryImpl? = null
@@ -44,7 +45,10 @@ class StallsRepositoryImpl : StallsRepository
         return sSoleInstance!!
     }
 
+    /**Gets the new data from the server and informs the view holder about it*/
     override fun getStalls(context : Context , viewModel: StallsViewModel) {
+        currentcontext = context
+        database = Room.databaseBuilder(currentcontext , StallsAndMenuDataBase::class.java , "wallet-database.db").allowMainThreadQueries().build()
         val retrofit = Retrofit.Builder().baseUrl("http://139.59.64.214/wallet/").addConverterFactory(
             GsonConverterFactory.create()).build()
         val apiSrevice = retrofit.create(StallsApi::class.java)
@@ -52,7 +56,6 @@ class StallsRepositoryImpl : StallsRepository
         call.enqueue(object : Callback<List<VendorsPojo>> {
 
             override fun onResponse(call: Call<List<VendorsPojo>>, response: Response<List<VendorsPojo>>) {
-                val database = Room.databaseBuilder(context , StallsAndMenuDataBase::class.java , "wallet-database.db").allowMainThreadQueries().build()
                 database.stallDao().deleteAll()
                 database.stallItemDao().deleteAll()
                 var responseBody = response.body()
@@ -85,15 +88,17 @@ class StallsRepositoryImpl : StallsRepository
         })
     }
 
+    /**Retervies the cached data from room*/
     override fun getCachedData(context : Context , viewModel: StallsViewModel) {
-        val database = Room.databaseBuilder(context , StallsAndMenuDataBase::class.java , "wallet-database.db").allowMainThreadQueries().build()
+        database = Room.databaseBuilder(context , StallsAndMenuDataBase::class.java , "wallet-database.db").allowMainThreadQueries().build()
         var list = database.stallDao().getAll()
         if (list.size!=0)
            viewModel.onStallDataAddedToLocalDatabase(list)
     }
 
-    override fun getMenu(stall: Stall) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    /**Retrieves the corresponding menu from room*/
+    override fun getMenu(stall_id : Int) : List<StallItem> {
+        return database.stallItemDao().getStallItems(stall_id)
     }
 
     override fun addItemToCart() {

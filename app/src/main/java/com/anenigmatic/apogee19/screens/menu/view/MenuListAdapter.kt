@@ -1,19 +1,18 @@
 package com.anenigmatic.apogee19.screens.menu.view
 
-
-
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.anenigmatic.apogee19.screens.menu.data.room.Stall
+import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
 
-class StallListAdapter(private var dataset :List<Stall> , private val fragment : StallListFragment) : RecyclerView.Adapter<StallListAdapter.MyViewHolder>() {
-
+class MenuListAdapter(var list : List<StallItem>) : RecyclerView.Adapter<MenuListAdapter.MyViewHolder>()
+{
     class MyViewHolder(val view: View): RecyclerView.ViewHolder(view){
+
         var nameLBL: TextView =view.findViewById(com.anenigmatic.apogee19.R.id.nameLBL)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
@@ -23,17 +22,20 @@ class StallListAdapter(private var dataset :List<Stall> , private val fragment :
         return MyViewHolder(view)
     } // create a new view
 
-    override fun getItemCount(): Int = dataset.size
+    override fun getItemCount(): Int = list.size
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.nameLBL.text =  dataset[position].name
-        holder.nameLBL.setOnClickListener {
-            Log.d("Test" , "onClick of menu item called")
-            fragment.onStallSelected(dataset[position].stall_id)
-        }
+        /**
+         * Since recycler view works in a way such that it only recycles the information that is displayed in the views
+         * of the recycler view, images of groups are also visible as currently we had not specified what image to overwrite
+         * the previous image
+         */
+
+        holder.nameLBL.text =  "${list[position].name}\n${list[position].price}"
+
+
+
     }
-
-
 }

@@ -3,6 +3,7 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:id="@+id/rootPOV"
+                                                   android:animateLayoutChanges="true"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:background="@drawable/gd_vio01_vio02">
@@ -97,10 +98,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
+            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/sh_rounded_rectangle_04dp_white"
 
-            app:srcCompat="@drawable/ic_menu"
-            android:id="@+id/imageButton" android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/ic_shopping_cart"
+            android:id="@+id/buttonCart" android:layout_marginTop="12dp"
             app:layout_constraintTop_toTopOf="@+id/guidelinehorizontal"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
@@ -117,5 +120,17 @@
             android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
             android:layout_marginTop="96dp" app:layout_constraintTop_toTopOf="@+id/guidelinehorizontal"
             android:layout_width="0dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/recyViewMenuItems"
+            android:visibility="invisible"
+            android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+            android:layout_marginTop="96dp" app:layout_constraintTop_toTopOf="@+id/guidelinehorizontal"
+            android:layout_width="0dp" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="1.0"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
