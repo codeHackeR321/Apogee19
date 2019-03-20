@@ -40,92 +40,49 @@ class MenuListFragment : Fragment() {
         mydataset.add("Jassi De Paronthe")
         mydataset.add("Jassi De Paronthe")
         mydataset.add("Jassi De Paronthe")
-        var customadapter = MenuListAdapter(mydataset)
+        var customadapter1 = MenuListAdapter(mydataset)
         recyViewMenu.apply {
-            adapter=customadapter
+            adapter=customadapter1
             layoutManager=LinearLayoutManager(currentContext)
         }
-        customadapter.notifyDataSetChanged()
+        customadapter1.notifyDataSetChanged()
 
 
-        mydataset.clear()
-        mydataset.add("Jassi De ParontheJassi De Paronthe")
-        mydataset.add("Jassi ")
-        mydataset.add("Jassi ")
-        mydataset.add("Jassi ")
-        mydataset.add("Jassi ")
-        mydataset.add("Jassi ")
-        mydataset.add("Jassi ")
-        mydataset.add("Jassi ")
-        mydataset.add("Jassi ")
-        mydataset.add("Jassi ")
-
+        var mydataset2= ArrayList<String>()
+        mydataset2.add("Jassi De ParontheJassi De Paronthe")
+        mydataset2.add("Jassi ")
+        mydataset2.add("Jassi ")
+        mydataset2.add("Jassi ")
+        mydataset2.add("Jassi ")
+        mydataset2.add("Jassi ")
+        mydataset2.add("Jassi ")
+        mydataset2.add("Jassi ")
+        mydataset2.add("Jassi ")
+        mydataset2.add("Jassi ")
+     var customadapter2= MenuListAdapter(mydataset2)
         recyViewMenuItems.apply {
-            adapter=customadapter
+            adapter=customadapter2
             layoutManager=LinearLayoutManager(currentContext)
         }
-        customadapter.notifyDataSetChanged()
+        customadapter2.notifyDataSetChanged()
 
  buttonCart.setOnClickListener(object : View.OnClickListener{
      override fun onClick(v: View?) {
-         ObjectAnimator.ofFloat(recyViewMenu, "translationX", -recyViewMenuItems.width.toFloat()).apply {
+         ObjectAnimator.ofFloat(recyViewMenu, "translationX", -backgroundPatternIMG.width.toFloat()).apply {
              duration = 1000
              start()
          }
 
 
 
-         recyViewMenuItems.x=backgroundPatternIMG.width.toFloat()
-         recyViewMenuItems.visibility=View.VISIBLE
-         ObjectAnimator.ofFloat(recyViewMenuItems, "translationX", (backgroundPatternIMG.width.toFloat()-recyViewMenuItems.width.toFloat())/4).apply {
+         view1.x=backgroundPatternIMG.width.toFloat()
+         view1.visibility=View.VISIBLE
+         ObjectAnimator.ofFloat(view1, "translationX", (backgroundPatternIMG.width.toFloat()-view1.width.toFloat())/16).apply {
              duration = 1000
              start()
          }
 
-        /* recyViewMenuItems.animate()
-             .translationXBy(-(recyViewMenuItems.width.toFloat()+(backgroundPatternIMG.width.toFloat()-recyViewMenuItems.width.toFloat())/2)).setDuration(1000)
-
-*/
-         /*recyViewMenu.animate().translationXBy(-backgroundPatternIMG.width.toFloat()).setDuration(1000).setListener(object : Animator.AnimatorListener
-         {
-             override fun onAnimationRepeat(animation: Animator?) {
-
-             }
-
-             override fun onAnimationEnd(animation: Animator?) {
-                 recyViewMenu.visibility=View.GONE
-             }
-
-             override fun onAnimationCancel(animation: Animator?) {
-             }
-
-             override fun onAnimationStart(animation: Animator?) {
-             }
-
-         }
-         )
-         mydataset.clear()
-         mydataset.add("Jassi De ParontheJassi De Paronthe")
-         mydataset.add("Jassi ")
-         mydataset.add("Jassi ")
-         mydataset.add("Jassi ")
-         mydataset.add("Jassi ")
-         mydataset.add("Jassi ")
-         mydataset.add("Jassi ")
-         mydataset.add("Jassi ")
-         mydataset.add("Jassi ")
-         mydataset.add("Jassi ")
-
-         recyViewMenuItems.apply {
-             adapter=customadapter
-             layoutManager=LinearLayoutManager(currentContext)
-         }
-         customadapter.notifyDataSetChanged()
-         recyViewMenuItems.x=backgroundPatternIMG.width.toFloat()
-         recyViewMenuItems.visibility=View.VISIBLE
-         recyViewMenuItems.animate()
-             .translationXBy(-(recyViewMenuItems.width.toFloat()+(backgroundPatternIMG.width.toFloat()-recyViewMenuItems.width.toFloat())/2)).setDuration(1000)
-     */}
+      }
  })
 
 
