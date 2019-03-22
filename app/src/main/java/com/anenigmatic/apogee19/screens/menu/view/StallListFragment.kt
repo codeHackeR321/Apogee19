@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
+import com.anenigmatic.apogee19.screens.events.view.FilterDialog
 import com.anenigmatic.apogee19.screens.menu.core.StallsViewModel
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
@@ -73,13 +74,14 @@ class StallListFragment : Fragment() {
 
         buttonCart.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                if(cardViewCart.visibility==View.VISIBLE)
+                CartDialog().show(childFragmentManager, "CartDialog")
+                /*if(cardViewCart.visibility==View.VISIBLE)
                     cardViewCart.visibility=View.INVISIBLE
                 else
                 {
                     cardViewCart.visibility=View.VISIBLE
                     cartAdapter.notifyDataSetChanged()
-                }
+                }*/
             }
         })
 
