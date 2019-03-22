@@ -3,18 +3,20 @@ package com.anenigmatic.apogee19.screens.menu.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
 
-class CartAdapter(var list : ArrayList<String>) : RecyclerView.Adapter<CartAdapter.MyViewHolder>()
+class CartAdapter(var list : ArrayList<String> , var fragment : CartDialog) : RecyclerView.Adapter<CartAdapter.MyViewHolder>()
 {
     class MyViewHolder(val view: View): RecyclerView.ViewHolder(view){
 
         var nameLBL: TextView =view.findViewById(com.anenigmatic.apogee19.R.id.nameLBL)
         var infoLBL: TextView =view.findViewById(com.anenigmatic.apogee19.R.id.infoLBL)
+        var minusButton : ImageButton = view.findViewById(R.id.removeItem)
 
     }
 
@@ -41,8 +43,9 @@ class CartAdapter(var list : ArrayList<String>) : RecyclerView.Adapter<CartAdapt
         holder.nameLBL.text = list[position] /*"${list[position].name}\n${list[position].price}"*/
         holder.infoLBL.text= "500x2"
 
-
-
+        holder.minusButton.setOnClickListener {
+            fragment.removeItem(list[position])
+        }
 
     }
 }

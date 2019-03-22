@@ -8,16 +8,17 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anenigmatic.apogee19.R
+import com.anenigmatic.apogee19.StateClass
 import com.anenigmatic.apogee19.screens.events.view.EventListFragment
 import com.anenigmatic.apogee19.screens.menu.view.StallListFragment
 import com.anenigmatic.apogee19.screens.more.view.MoreFragment
+import com.anenigmatic.apogee19.screens.orderHistory.view.OrderHistory
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import kotlinx.android.synthetic.main.act_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var backCalled = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_main)
@@ -65,9 +66,16 @@ class MainActivity : AppCompatActivity() {
                             )
                             .addToBackStack(null)
                             .commitAllowingStateLoss()
+                        StateClass.state = 0
                        /* Toast.makeText(this, "Menu", Toast.LENGTH_SHORT).show()*/
                     }
                     2 -> {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.navHostFRM,
+                                OrderHistory()
+                            )
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss()
                         Toast.makeText(this, "Orders", Toast.LENGTH_SHORT).show()
                     }
                     3 -> {
@@ -93,17 +101,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        if (bottomNavAHB.currentItem == 1 && backCalled == 0)
+        if (bottomNavAHB.currentItem == 1)
         {
-            backCalled++
-            Toast.makeText(applicationContext , "Hello" , Toast.LENGTH_LONG).show()
-            supportFragmentManager.fragments.first().onDestroyOptionsMenu()
+            if (StateClass.state == 0)
+                super.onBackPressed()
+            else
+                supportFragmentManager.fragments.first().onDestroyOptionsMenu()
         }
-        else if (backCalled == 1)
-        {
-            backCalled = 0
+        else
             super.onBackPressed()
-        }
 
     }
 

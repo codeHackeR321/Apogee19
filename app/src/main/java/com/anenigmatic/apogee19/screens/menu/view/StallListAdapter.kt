@@ -1,7 +1,5 @@
 package com.anenigmatic.apogee19.screens.menu.view
 
-
-
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View

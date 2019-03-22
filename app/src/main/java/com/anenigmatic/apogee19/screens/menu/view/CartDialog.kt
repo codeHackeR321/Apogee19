@@ -12,14 +12,16 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
 import kotlinx.android.synthetic.main.dia_cart.view.*
-import kotlinx.android.synthetic.main.try_menu_layout.*
+import kotlinx.android.synthetic.main.fra_stall_list.*
 
 class CartDialog: DialogFragment() {
+
+    var trialList= ArrayList<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view  = inflater.inflate(R.layout.dia_cart, container, false)
 
-        var trialList= ArrayList<String>()
+
         trialList.add("Curry of life")
         trialList.add("Double chicken roll")
         trialList.add("Double chicken roll with")
@@ -28,7 +30,7 @@ class CartDialog: DialogFragment() {
         trialList.add("Double chicken roll with")
         trialList.add("Double chicken roll with extra ")
         trialList.add("Double chicken roll cheese")
-        var cartAdapter= CartAdapter(trialList)
+        var cartAdapter= CartAdapter(trialList , this)
         view.recyViewCart.apply {
             adapter= cartAdapter
             layoutManager= LinearLayoutManager(view.context)
@@ -39,6 +41,12 @@ class CartDialog: DialogFragment() {
         }
 
         return view
+    }
+
+    fun removeItem(item : String)
+    {
+        trialList.remove(item)
+        view!!.recyViewCart.adapter!!.notifyDataSetChanged()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

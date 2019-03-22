@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
 
-class MenuListAdapter(var list : List<StallItem>) : RecyclerView.Adapter<MenuListAdapter.MyViewHolder>()
+class MenuListAdapter(var list : List<StallItem> , var fragment : StallListFragment) : RecyclerView.Adapter<MenuListAdapter.MyViewHolder>()
 {
     class MyViewHolder(val view: View): RecyclerView.ViewHolder(view){
 
@@ -39,6 +39,9 @@ class MenuListAdapter(var list : List<StallItem>) : RecyclerView.Adapter<MenuLis
         holder.nameLBL.text = list[position].name /*"${list[position].name}\n${list[position].price}"*/
         holder.infoLBL.text= list[position].price.toString()
         holder.starBTN.setImageResource(R.drawable.ic_add)
+        holder.starBTN.setOnClickListener{
+            fragment.addItemToCart(list[position])
+        }
 
     }
 }

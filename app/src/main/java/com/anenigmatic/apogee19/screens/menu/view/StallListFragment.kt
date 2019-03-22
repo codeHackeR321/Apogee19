@@ -1,7 +1,9 @@
 package com.anenigmatic.apogee19.screens.menu.view
 
 import android.animation.ObjectAnimator
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,16 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
-import com.anenigmatic.apogee19.screens.events.view.FilterDialog
+import com.anenigmatic.apogee19.StateClass
 import com.anenigmatic.apogee19.screens.menu.core.StallsViewModel
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
-import kotlinx.android.synthetic.main.act_main.*
-
-import kotlinx.android.synthetic.main.try_menu_layout.*
-
-
-///import kotlinx.android.synthetic.main.try_menu_layout.*
+import kotlinx.android.synthetic.main.fra_stall_list.*
+import kotlinx.android.synthetic.main.row_quantity_select.*
 
 class StallListFragment : Fragment() {
 
@@ -30,7 +28,7 @@ class StallListFragment : Fragment() {
     lateinit var model : StallsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view  = inflater.inflate(R.layout.try_menu_layout, container, false)
+        val view  = inflater.inflate(R.layout.fra_stall_list, container, false)
         currentContext = view.context
 
         return view
@@ -57,37 +55,18 @@ class StallListFragment : Fragment() {
 
         // to check the cart layout
 
-        var trialList= ArrayList<String>()
-        trialList.add("Curry of life")
-        trialList.add("Double chicken roll")
-        trialList.add("Double chicken roll with")
-        trialList.add("Double chicken roll with extra ")
-        trialList.add("Double chicken roll cheese")
-        trialList.add("Double chicken roll with")
-        trialList.add("Double chicken roll with extra ")
-        trialList.add("Double chicken roll cheese")
-        var cartAdapter= CartAdapter(trialList)
-        recyViewCart.apply {
-            adapter= cartAdapter
-            layoutManager=LinearLayoutManager(currentContext)
-        }
-
         buttonCart.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 CartDialog().show(childFragmentManager, "CartDialog")
-                /*if(cardViewCart.visibility==View.VISIBLE)
-                    cardViewCart.visibility=View.INVISIBLE
-                else
-                {
-                    cardViewCart.visibility=View.VISIBLE
-                    cartAdapter.notifyDataSetChanged()
-                }*/
             }
         })
 
-
+        backButton.setOnClickListener {
+            startAnimationForRecyclerView(true)
+        }
 
     }
+
 
     /**
      * This function is called when the user clicks on one of the stalls in the list
@@ -100,7 +79,7 @@ class StallListFragment : Fragment() {
         recyViewMenuItems.visibility = View.VISIBLE*/
         startAnimationForRecyclerView(false)
         recyViewMenuItems.apply {
-            adapter=MenuListAdapter(model.getMenuListForStall(stall_id))
+            adapter=MenuListAdapter(model.getMenuListForStall(stall_id) , this@StallListFragment)
             layoutManager=LinearLayoutManager(currentContext)
         }
         recyViewMenuItems.adapter!!.notifyDataSetChanged()
@@ -112,7 +91,7 @@ class StallListFragment : Fragment() {
 
     fun startAnimationForRecyclerView(isReverse : Boolean)
     {
-
+        StateClass.state = 1
         if (!isReverse)
         {
             ObjectAnimator.ofFloat(recyViewMenu , "translationX" , -backgroundPatternIMG.width.toFloat()).apply {
@@ -128,6 +107,7 @@ class StallListFragment : Fragment() {
                 duration = 500
                 start()
             }
+            StateClass.state = 2
 
         }
         else
@@ -143,7 +123,7 @@ class StallListFragment : Fragment() {
                 duration = 500
                 start()
             }
-
+            StateClass.state = 0
         }
 
     }
@@ -154,6 +134,35 @@ class StallListFragment : Fragment() {
             startAnimationForRecyclerView(true)
         else
             activity!!.onBackPressed()
+    }
+
+    fun addItemToCart(item : StallItem)
+    {
+        var alertBox = AlertDialog.Builder(currentContext).setPositiveButton("Add" , DialogInterface.OnClickListener { dialog, which ->
+            Toast.makeText(currentContext , "Hello" , Toast.LENGTH_LONG).show()
+            })
+            .setNegativeButton("Cancel" , DialogInterface.OnClickListener { dialog, which ->
+                Toast.makeText(currentContext , "Bye" , Toast.LENGTH_LONG).show()
+            })
+            .setTitle(item.name)
+            .setView(R.layout.row_quantity_select)
+            .create()
+        alertBox.show()
+        alertBox.AddButton.setOnClickListener {
+            alertBox.TextQuantity.text  = (Integer.parseInt(alertBox.TextQuantity.text.toString()) + 1).toString()
+        }
+
+        alertBox.SubtractButton.setOnClickListener {
+            if (Integer.parseInt(alertBox.TextQuantity.text.toString()) > 1)
+            {
+                alertBox.TextQuantity.text  = (Integer.parseInt(alertBox.TextQuantity.text.toString()) - 1).toString()
+            }
+            else
+            {
+                Toast.makeText(currentContext , "Atleast One item must be selected" , Toast.LENGTH_LONG).show()
+            }
+        }
+
     }
 
 }

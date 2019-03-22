@@ -3,8 +3,8 @@
 
 android:background="@drawable/sh_rounded_rectangle_16dp"
     android:layout_width="320dp"
-    android:layout_height="480dp"
-    android:minHeight="480dp"
+    android:layout_height="600dp"
+    android:minHeight="600dp"
     android:minWidth="320dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cartLayout">
@@ -31,6 +31,7 @@ android:background="@drawable/sh_rounded_rectangle_16dp"
             android:textColor="#FF7979"
             android:fontFamily="@font/google_sans_bold"
             android:padding="4dp"/>
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,8 +39,8 @@ android:background="@drawable/sh_rounded_rectangle_16dp"
             android:id="@+id/closeDialog"
             app:layout_constraintTop_toTopOf="@id/cartLayout"
             app:layout_constraintEnd_toEndOf="@id/cartLayout"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="24dp"
             android:background="@drawable/sh_rounded_rectangle_08dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
