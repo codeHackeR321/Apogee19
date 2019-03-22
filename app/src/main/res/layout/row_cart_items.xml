@@ -6,15 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_remove_item"
+        app:layout_constraintStart_toStartOf="@id/rootPOV"
+        app:layout_constraintEnd_toStartOf="@id/nameLBL"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/sh_rounded_rectangle_8dp_white_bg"
+        android:id="@+id/removeItem"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"/>
 
     <TextView
         android:id="@+id/nameLBL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="0dp"
-        android:layout_marginEnd="96dp"
+        android:layout_marginEnd="72dp"
         android:backgroundTint="#FFFFFF"
         android:scrollbars="horizontal"
 
@@ -28,7 +42,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/removeItem"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="The Starry Night Profshow" />
 
