@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.screens.events.view.EventListFragment
-import com.anenigmatic.apogee19.screens.menu.view.MenuListFragment
+import com.anenigmatic.apogee19.screens.menu.view.StallListFragment
 import com.anenigmatic.apogee19.screens.more.view.MoreFragment
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
@@ -57,7 +57,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     1 -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.navHostFRM, MenuListFragment())
+                            .replace(R.id.navHostFRM,
+                                StallListFragment()
+                            )
                             .addToBackStack(null)
                             .commitAllowingStateLoss()
                        /* Toast.makeText(this, "Menu", Toast.LENGTH_SHORT).show()*/
