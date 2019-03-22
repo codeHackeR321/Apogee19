@@ -33,6 +33,10 @@ class StallListAdapter(private var dataset :List<Stall> , private val fragment :
             Log.d("Test" , "onClick of menu item called")
             fragment.onStallSelected(dataset[position].stall_id)
         }
+        holder.view.setOnClickListener{
+            Log.d("Test" , "onClick of menu item called")
+            fragment.onStallSelected(dataset[position].stall_id)
+        }
     }
 
 

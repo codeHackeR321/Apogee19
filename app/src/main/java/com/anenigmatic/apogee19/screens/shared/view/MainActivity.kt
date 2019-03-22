@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.RecyclerView
 import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.screens.events.view.EventListFragment
 import com.anenigmatic.apogee19.screens.menu.view.StallListFragment
@@ -15,6 +17,7 @@ import kotlinx.android.synthetic.main.act_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private var backCalled = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_main)
@@ -87,4 +90,21 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavAHB.setCurrentItem(currentItem, true)
     }
+
+    override fun onBackPressed() {
+
+        if (bottomNavAHB.currentItem == 1 && backCalled == 0)
+        {
+            backCalled++
+            Toast.makeText(applicationContext , "Hello" , Toast.LENGTH_LONG).show()
+            supportFragmentManager.fragments.first().onDestroyOptionsMenu()
+        }
+        else if (backCalled == 1)
+        {
+            backCalled = 0
+            super.onBackPressed()
+        }
+
+    }
+
 }

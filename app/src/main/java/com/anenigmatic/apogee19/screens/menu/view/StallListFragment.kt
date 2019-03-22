@@ -7,14 +7,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.screens.menu.core.StallsViewModel
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
-import kotlinx.android.synthetic.main.fra_menu_list.*
+import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
+import kotlinx.android.synthetic.main.act_main.*
 
+import kotlinx.android.synthetic.main.try_menu_layout.*
 
 
 ///import kotlinx.android.synthetic.main.try_menu_layout.*
@@ -25,7 +29,7 @@ class StallListFragment : Fragment() {
     lateinit var model : StallsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view  = inflater.inflate(R.layout.fra_menu_list, container, false)
+        val view  = inflater.inflate(R.layout.try_menu_layout, container, false)
         currentContext = view.context
 
         return view
@@ -50,6 +54,37 @@ class StallListFragment : Fragment() {
         model.getStallListFromServer()
         model.stallList.observe(this , stallObserver)
 
+        // to check the cart layout
+
+        var trialList= ArrayList<String>()
+        trialList.add("Curry of life")
+        trialList.add("Double chicken roll")
+        trialList.add("Double chicken roll with")
+        trialList.add("Double chicken roll with extra ")
+        trialList.add("Double chicken roll cheese")
+        trialList.add("Double chicken roll with")
+        trialList.add("Double chicken roll with extra ")
+        trialList.add("Double chicken roll cheese")
+        var cartAdapter= CartAdapter(trialList)
+        recyViewCart.apply {
+            adapter= cartAdapter
+            layoutManager=LinearLayoutManager(currentContext)
+        }
+
+        buttonCart.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                if(cardViewCart.visibility==View.VISIBLE)
+                    cardViewCart.visibility=View.INVISIBLE
+                else
+                {
+                    cardViewCart.visibility=View.VISIBLE
+                    cartAdapter.notifyDataSetChanged()
+                }
+            }
+        })
+
+
+
     }
 
     /**
@@ -61,9 +96,9 @@ class StallListFragment : Fragment() {
         /**Code to start animation will come here*/
         /*recyViewMenu.visibility = View.INVISIBLE
         recyViewMenuItems.visibility = View.VISIBLE*/
-        startAnimationForRecyclerView()
+        startAnimationForRecyclerView(false)
         recyViewMenuItems.apply {
-            adapter=MenuListAdapter(model!!.getMenuListForStall(stall_id))
+            adapter=MenuListAdapter(model.getMenuListForStall(stall_id))
             layoutManager=LinearLayoutManager(currentContext)
         }
         recyViewMenuItems.adapter!!.notifyDataSetChanged()
@@ -73,19 +108,50 @@ class StallListFragment : Fragment() {
      * This method is called to start the animation between recycler views when a stall is clicked
      */
 
-    fun startAnimationForRecyclerView()
+    fun startAnimationForRecyclerView(isReverse : Boolean)
     {
-        ObjectAnimator.ofFloat(recyViewMenu , "translationX" , -backgroundPatternIMG.width.toFloat()).apply {
-            duration = 1000
-            start()
+
+        if (!isReverse)
+        {
+            ObjectAnimator.ofFloat(recyViewMenu , "translationX" , -backgroundPatternIMG.width.toFloat()).apply {
+                duration = 500
+                start()
+            }
+
+            linearViewMenuItems.x = backgroundPatternIMG.width.toFloat()
+            linearViewMenuItems.visibility = View.VISIBLE
+            recyViewMenuItems.visibility=View.VISIBLE
+
+            ObjectAnimator.ofFloat(linearViewMenuItems, "translationX" , (backgroundPatternIMG.width - linearViewMenuItems.width).toFloat()/128).apply {
+                duration = 500
+                start()
+            }
+
+        }
+        else
+        {
+            ObjectAnimator.ofFloat(linearViewMenuItems , "translationX" , backgroundPatternIMG.width.toFloat()).apply {
+                duration = 500
+                start()
+            }
+
+            recyViewMenu.visibility = View.VISIBLE
+
+            ObjectAnimator.ofFloat(recyViewMenu, "translationX" , (backgroundPatternIMG.width - recyViewMenu.width).toFloat()/128).apply {
+                duration = 500
+                start()
+            }
+
         }
 
-        recyViewMenuItems.x = backgroundPatternIMG.width.toFloat()
-        recyViewMenuItems.visibility = View.VISIBLE
-        ObjectAnimator.ofFloat(recyViewMenuItems , "translationX" , (backgroundPatternIMG.width.toFloat() - recyViewMenuItems.width.toFloat())/16).apply {
-            duration = 1000
-            start()
-        }
+    }
+
+    override fun onDestroyOptionsMenu() {
+        Toast.makeText(currentContext , "Entered backstack" , Toast.LENGTH_LONG).show()
+        if (recyViewMenuItems.isVisible)
+            startAnimationForRecyclerView(true)
+        else
+            activity!!.onBackPressed()
     }
 
 }
