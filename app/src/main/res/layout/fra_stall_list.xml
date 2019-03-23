@@ -6,7 +6,7 @@
                                                    android:animateLayoutChanges="true"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   android:background="@drawable/gd_vio01_vio02">
+                                                   android:background="@drawable/gd_pink02_pink03">
 
     <ImageView
             android:id="@+id/backgroundPatternIMG"
