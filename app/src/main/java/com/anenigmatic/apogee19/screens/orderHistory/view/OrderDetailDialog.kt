@@ -1,11 +1,15 @@
 package com.anenigmatic.apogee19.screens.orderHistory.view
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
@@ -24,6 +28,13 @@ class OrderDetailDialog : DialogFragment() {
             dismiss()
         }
         return view
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        return dialog
     }
 
     override fun onStart() {
