@@ -57,7 +57,7 @@ class StallListFragment : Fragment() {
 
         buttonCart.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                CartDialog().show(childFragmentManager, "CartDialog")
+                CartDialog().show(childFragmentManager , "CartDialog")
             }
         })
 
@@ -94,14 +94,15 @@ class StallListFragment : Fragment() {
         StateClass.state = 1
         if (!isReverse)
         {
-            ObjectAnimator.ofFloat(recyViewMenu , "translationX" , -backgroundPatternIMG.width.toFloat()).apply {
-                duration = 500
-                start()
-            }
 
             linearViewMenuItems.x = backgroundPatternIMG.width.toFloat()
             linearViewMenuItems.visibility = View.VISIBLE
             recyViewMenuItems.visibility=View.VISIBLE
+
+            ObjectAnimator.ofFloat(recyViewMenu , "translationX" , -backgroundPatternIMG.width.toFloat()).apply {
+                duration = 500
+                start()
+            }
 
             ObjectAnimator.ofFloat(linearViewMenuItems, "translationX" , (backgroundPatternIMG.width - linearViewMenuItems.width).toFloat()/128).apply {
                 duration = 500

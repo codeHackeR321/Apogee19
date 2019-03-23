@@ -13,7 +13,7 @@ class OrderHistoryAdapter(private var dataset : ArrayList<String>, private val f
         var nameLBL: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.nameLBL)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): OrderHistoryAdapter.MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             com.anenigmatic.apogee19.R.layout.row_menu,
             parent,
@@ -21,14 +21,17 @@ class OrderHistoryAdapter(private var dataset : ArrayList<String>, private val f
         ) as View
         // set the view's size, margins, paddings and layout parameters
 
-        return MyViewHolder(view)
+        return OrderHistoryAdapter.MyViewHolder(view)
     } // create a new view
 
     override fun getItemCount(): Int = dataset.size
 
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+    override fun onBindViewHolder(holder: OrderHistoryAdapter.MyViewHolder, position: Int) {
         holder.nameLBL.text = dataset[position]
+        holder.nameLBL.setOnClickListener {
+            fragment.onOrederClicked(dataset[position])
+        }
     }
+
 }
