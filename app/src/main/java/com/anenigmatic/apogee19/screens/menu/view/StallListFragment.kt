@@ -4,12 +4,14 @@ import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,6 +21,7 @@ import com.anenigmatic.apogee19.StateClass
 import com.anenigmatic.apogee19.screens.menu.core.StallsViewModel
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
+import kotlinx.android.synthetic.main.dia_cart.*
 import kotlinx.android.synthetic.main.fra_stall_list.*
 import kotlinx.android.synthetic.main.row_quantity_select.*
 
@@ -36,7 +39,6 @@ class StallListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
         model = StallsViewModel(this)
         model.loadDataFromCache()
 
@@ -50,8 +52,13 @@ class StallListFragment : Fragment() {
             recyViewMenu.adapter!!.notifyDataSetChanged()
         }
 
-        model.getStallListFromServer()
-        model.stallList.observe(this , stallObserver)
+        var connectivityManager : ConnectivityManager = currentContext!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnectedOrConnecting) {
+            model.getStallListFromServer()
+            model.stallList.observe(this , stallObserver)
+        } else {
+            Toast.makeText(currentContext , "Please Check your Internet Connection" , Toast.LENGTH_LONG).show()
+        }
 
         // to check the cart layout
 
@@ -64,6 +71,7 @@ class StallListFragment : Fragment() {
         backButton.setOnClickListener {
             startAnimationForRecyclerView(true)
         }
+
 
     }
 

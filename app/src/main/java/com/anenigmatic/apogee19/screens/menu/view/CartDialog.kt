@@ -11,6 +11,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
+import kotlinx.android.synthetic.main.dia_cart.*
 import kotlinx.android.synthetic.main.dia_cart.view.*
 import kotlinx.android.synthetic.main.fra_stall_list.*
 
@@ -47,6 +48,11 @@ class CartDialog: DialogFragment() {
     {
         trialList.remove(item)
         view!!.recyViewCart.adapter!!.notifyDataSetChanged()
+    }
+
+    override fun onStart() {
+        diaPastOrderLayout.minHeight = ((parentFragment!!.view!!.height)*0.85).toInt() // Height of dialog is 85% of the fragment width
+        super.onStart()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

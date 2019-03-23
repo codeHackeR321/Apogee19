@@ -5,13 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 
-class StallListAdapter(private var dataset :List<Stall> , private val fragment : StallListFragment) : RecyclerView.Adapter<StallListAdapter.MyViewHolder>() {
+class StallListAdapter(var dataset :List<Stall> , val fragment : StallListFragment) : RecyclerView.Adapter<StallListAdapter.MyViewHolder>() {
+
+    var frag = fragment
+    var datas = dataset
 
     class MyViewHolder(val view: View): RecyclerView.ViewHolder(view){
-        var nameLBL: TextView =view.findViewById(com.anenigmatic.apogee19.R.id.nameLBL)
+
+        var nameLBL: TextView =view.findViewById(R.id.nameLBL)
+        var parent : ConstraintLayout = view.findViewById(R.id.rootPOV)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MyViewHolder {
@@ -27,15 +35,12 @@ class StallListAdapter(private var dataset :List<Stall> , private val fragment :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         holder.nameLBL.text =  dataset[position].name
-        holder.nameLBL.setOnClickListener {
-            Log.d("Test" , "onClick of menu item called")
-            fragment.onStallSelected(dataset[position].stall_id)
-        }
-        holder.view.setOnClickListener{
+        holder.parent.setOnClickListener {
             Log.d("Test" , "onClick of menu item called")
             fragment.onStallSelected(dataset[position].stall_id)
         }
     }
+
 
 
 }
