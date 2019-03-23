@@ -10,12 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 class OrderHistoryAdapter(private var dataset : ArrayList<String>, private val fragment : OrderHistory) : RecyclerView.Adapter<OrderHistoryAdapter.MyViewHolder>() {
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        var nameLBL: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.nameLBL)
+        var textViewOrderNo: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewOrderNo)
+        var textViewStatus: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewStatus)
+        var textViewOTP: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewOTP)
+        var textViewTotal: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewTotal)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): OrderHistoryAdapter.MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            com.anenigmatic.apogee19.R.layout.row_menu,
+            com.anenigmatic.apogee19.R.layout.row_order_list,
             parent,
             false
         ) as View
@@ -28,8 +31,8 @@ class OrderHistoryAdapter(private var dataset : ArrayList<String>, private val f
 
 
     override fun onBindViewHolder(holder: OrderHistoryAdapter.MyViewHolder, position: Int) {
-        holder.nameLBL.text = dataset[position]
-        holder.nameLBL.setOnClickListener {
+
+        holder.textViewOrderNo.setOnClickListener {
             fragment.onOrederClicked(dataset[position])
         }
     }

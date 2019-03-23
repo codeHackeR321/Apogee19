@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,6 +30,8 @@ class StallListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view  = inflater.inflate(R.layout.fra_stall_list, container, false)
+
+
         currentContext = view.context
 
         return view
@@ -39,7 +42,7 @@ class StallListFragment : Fragment() {
 
         model = StallsViewModel(this)
         model.loadDataFromCache()
-
+       // buttonCart.setColorFilter(view!!.resources.getColor(R.color.vio01),PorterDuff.Mode.SRC_IN)
         val stallObserver = Observer<List<Stall>>
         {updatedList ->
             Log.d("Test" , "Obsreved correctly $updatedList")
