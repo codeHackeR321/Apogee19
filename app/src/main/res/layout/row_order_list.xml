@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/diaPastOrderLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sh_rounded_rectangle_16dp"
+    android:layout_marginBottom="16dp"
+   >
+
+
+    <TextView
+        android:id="@+id/textViewOrderNo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/google_sans_bold"
+        android:text="Order #133432"
+        android:textColor="@color/yel03"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
+        app:layout_constraintTop_toTopOf="@id/diaPastOrderLayout" />
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="0dp"
+        android:text="COMPLETED"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAllCaps="true"
+        android:textColor="@color/grn01"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
+        app:layout_constraintTop_toBottomOf="@id/textViewOrderNo" />
+
+    <TextView
+        android:id="@+id/textViewOTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="0dp"
+        android:text="OTP: 1499"
+        android:textColor="@color/grn01"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/textViewStatus"
+        app:layout_constraintTop_toBottomOf="@id/textViewOrderNo" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewTotal"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAlignment="textEnd"
+        android:textSize="20sp"
+        android:text="\u20B9 10000"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

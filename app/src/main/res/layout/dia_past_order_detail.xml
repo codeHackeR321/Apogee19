@@ -1,92 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:background="@drawable/sh_rounded_rectangle_16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/diaPastOrderLayout"
     android:layout_width="320dp"
     android:layout_height="600dp"
-    android:minHeight="600dp"
+    android:background="@drawable/sh_rounded_rectangle_16dp"
     android:minWidth="320dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/diaPastOrderLayout">
+    android:minHeight="600dp">
 
-    <!--<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/cartLayout"
-        android:src="@drawable/ic_shopping_cart"
-        android:id="@+id/imageViewCart"
-        android:background="@drawable/sh_rounded_rectangle_8dp_white_bg"
-        app:layout_constraintStart_toStartOf="@id/cartLayout"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"/>-->
+
     <TextView
+        android:id="@+id/textViewOrderNo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:text="PAST ORDERS"
-        android:id="@+id/textViewPast"
-        app:layout_constraintTop_toTopOf="@id/diaPastOrderLayout"
-        app:layout_constraintStart_toEndOf="@id/imageViewCart"
-        android:layout_marginTop="24dp"
         android:layout_marginStart="16dp"
-        android:textColor="#FF7979"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/google_sans_bold"
-        android:padding="4dp"/>
+        android:text="Order #133432"
+        android:textColor="@color/yel03"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
+        app:layout_constraintTop_toTopOf="@id/diaPastOrderLayout" />
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="0dp"
+        android:text="COMPLETED"
+        android:textAllCaps="true"
+        android:textColor="@color/grn01"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
+        app:layout_constraintTop_toBottomOf="@id/textViewOrderNo" />
+
+    <TextView
+        android:id="@+id/textViewOTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="0dp"
+        android:text="OTP: 1499"
+        android:textColor="@color/grn01"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/textViewStatus"
+        app:layout_constraintTop_toBottomOf="@id/textViewOrderNo" />
+
+    <TextView
+        android:id="@+id/textViewVendorName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:text="Domino's"
+        android:ellipsize="end"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
+        app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
+        app:layout_constraintTop_toBottomOf="@id/textViewStatus" />
 
     <ImageButton
+        android:id="@+id/closeDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/sh_rounded_rectangle_08dp"
+        android:padding="24dp"
         android:src="@drawable/ic_close"
-        android:id="@+id/closeDialog"
-        app:layout_constraintTop_toTopOf="@id/diaPastOrderLayout"
         app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
-        android:paddingEnd="24dp"
-        android:paddingTop="24dp"
-        android:background="@drawable/sh_rounded_rectangle_08dp"/>
+        app:layout_constraintTop_toTopOf="@id/diaPastOrderLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
         android:id="@+id/recyViewCart"
-        app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
-        app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
-        app:layout_constraintTop_toBottomOf="@id/textViewPast"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="24dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="0dp"
-        >
+        app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
+        app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
+        app:layout_constraintTop_toBottomOf="@id/textViewVendorName">
 
     </androidx.recyclerview.widget.RecyclerView>
-    <!--<TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Total: Rs. 1000"
-        app:layout_constraintEnd_toEndOf="@id/cartLayout"
-        app:layout_constraintStart_toStartOf="@id/cartLayout"
-        android:textSize="24sp"
-        android:id="@+id/textViewTotal"
-        android:textColor="#4E2E6D"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/buttonPay"
-        app:layout_constraintTop_toBottomOf="@id/recyViewCart"
-        android:padding="8dp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonPay"
-        android:text="Pay"
-        app:layout_constraintBottom_toBottomOf="@id/cartLayout"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/textViewTotal"
-        app:layout_constraintStart_toStartOf="@id/cartLayout"
-        app:layout_constraintEnd_toEndOf="@id/cartLayout"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/google_sans_medium"
-        android:textSize="24sp"
-        android:background="@drawable/sh_rounded_rectangle_8dp_orange_bg"
-        android:textColor="#FFFFFF"
-        />-->
+ <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:id="@+id/textViewTotal"
+     android:layout_marginTop="16dp"
+     android:layout_marginEnd="4dp"
+     app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
+     app:layout_constraintTop_toBottomOf="@id/recyViewCart"
+     android:textAlignment="textEnd"
+     android:textSize="18sp"
+     android:text="Total: \u20B9 10000"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

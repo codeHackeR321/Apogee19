@@ -1,6 +1,7 @@
 package com.anenigmatic.apogee19.screens.orderHistory.view
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,11 +27,14 @@ class OrderDetailDialog : DialogFragment() {
     }
 
     override fun onStart() {
+        diaPastOrderLayout.minHeight = ((parentFragment!!.view!!.height)*0.85).toInt()
+        diaPastOrderLayout.minWidth = ((parentFragment!!.view!!.width)*0.85).toInt()
+        closeDialog.setColorFilter(view!!.resources.getColor(R.color.yel03), PorterDuff.Mode.SRC_IN)
         var list : ArrayList<String> = ArrayList(3)
         list.add("Hello")
         list.add("How are you")
         list.add("This is an array list")
-        recyViewCart.adapter = OrderDetailAdapter(list , this)
+        recyViewCart.adapter = OrderDialogAdapter(list , this)
         recyViewCart.layoutManager = LinearLayoutManager(currentContext)
         recyViewCart.adapter!!.notifyDataSetChanged()
         super.onStart()

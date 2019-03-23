@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,7 +20,6 @@ import com.anenigmatic.apogee19.StateClass
 import com.anenigmatic.apogee19.screens.menu.core.StallsViewModel
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
-import kotlinx.android.synthetic.main.dia_cart.*
 import kotlinx.android.synthetic.main.fra_stall_list.*
 import kotlinx.android.synthetic.main.row_quantity_select.*
 
@@ -32,6 +30,8 @@ class StallListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view  = inflater.inflate(R.layout.fra_stall_list, container, false)
+
+
         currentContext = view.context
 
         return view
@@ -41,7 +41,7 @@ class StallListFragment : Fragment() {
         super.onStart()
         model = StallsViewModel(this)
         model.loadDataFromCache()
-
+       // buttonCart.setColorFilter(view!!.resources.getColor(R.color.vio01),PorterDuff.Mode.SRC_IN)
         val stallObserver = Observer<List<Stall>>
         {updatedList ->
             Log.d("Test" , "Obsreved correctly $updatedList")

@@ -1,93 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@drawable/sh_rounded_rectangle_16dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cartLayout"
+    android:layout_width="320dp"
+    android:layout_height="600dp"
+    android:background="@drawable/sh_rounded_rectangle_16dp"
+    android:minWidth="320dp"
+    android:minHeight="600dp">
+
+    <ImageView
+        android:id="@+id/imageViewCart"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="600dp"
-        android:minWidth="320dp"
-        android:id="@+id/diaPastOrderLayout" android:layout_width="320dp">
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/sh_rounded_rectangle_8dp_white_bg"
+        android:src="@drawable/ic_shopping_cart"
+        app:layout_constraintStart_toStartOf="@+id/cartLayout"
+        app:layout_constraintTop_toTopOf="@+id/cartLayout" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/diaPastOrderLayout"
-            android:src="@drawable/ic_shopping_cart"
-            android:id="@+id/imageViewCart"
-            android:background="@drawable/sh_rounded_rectangle_8dp_white_bg"
-            app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:text="CART"
-            app:layout_constraintTop_toTopOf="@id/diaPastOrderLayout"
-            app:layout_constraintStart_toEndOf="@id/imageViewCart"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="16dp"
-            android:textColor="#FF7979"
-            android:fontFamily="@font/google_sans_bold"
-            android:padding="4dp"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/google_sans_bold"
+        android:padding="4dp"
+        android:text="CART"
+        android:textColor="#FF7979"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@id/imageViewCart"
+        app:layout_constraintTop_toTopOf="@+id/cartLayout" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_close"
-            android:id="@+id/closeDialog"
-            app:layout_constraintTop_toTopOf="@id/diaPastOrderLayout"
-            app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
-            android:padding="24dp"
-            android:background="@drawable/sh_rounded_rectangle_08dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:id="@+id/recyViewCart"
-            app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
-            app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
-            app:layout_constraintTop_toBottomOf="@id/imageViewCart"
-            app:layout_constraintBottom_toTopOf="@id/textViewTotal"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="0dp"
-            >
+    <ImageButton
+        android:id="@+id/closeDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sh_rounded_rectangle_08dp"
+        android:padding="24dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="@+id/cartLayout"
+        app:layout_constraintTop_toTopOf="@+id/cartLayout"/>
 
-        </androidx.recyclerview.widget.RecyclerView>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Total: Rs. 1000"
-            app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
-            app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
-            android:textSize="24sp"
-            android:id="@+id/textViewTotal"
-            android:textColor="#4E2E6D"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@id/buttonPay"
-            app:layout_constraintTop_toBottomOf="@id/recyViewCart"
-            android:padding="8dp"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonPay"
-            android:text="Pay"
-            app:layout_constraintBottom_toBottomOf="@id/diaPastOrderLayout"
-            android:textAllCaps="false"
-            app:layout_constraintTop_toBottomOf="@id/textViewTotal"
-            app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
-            app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/google_sans_medium"
-            android:textSize="24sp"
-            android:background="@drawable/sh_rounded_rectangle_8dp_orange_bg"
-            android:textColor="#FFFFFF"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyViewCart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@id/textViewTotal"
+        app:layout_constraintEnd_toEndOf="@+id/cartLayout"
+        app:layout_constraintStart_toStartOf="@+id/cartLayout"
+        app:layout_constraintTop_toBottomOf="@id/imageViewCart">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textViewTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Total: Rs. 1000"
+        android:textAlignment="center"
+        android:textColor="#4E2E6D"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/buttonPay"
+        app:layout_constraintEnd_toEndOf="@+id/cartLayout"
+        app:layout_constraintStart_toStartOf="@+id/cartLayout"
+        app:layout_constraintTop_toBottomOf="@id/recyViewCart" />
+
+    <Button
+        android:id="@+id/buttonPay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/sh_rounded_rectangle_8dp_orange_bg"
+        android:fontFamily="@font/google_sans_medium"
+        android:text="Pay"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cartLayout"
+        app:layout_constraintEnd_toEndOf="@+id/cartLayout"
+        app:layout_constraintStart_toStartOf="@+id/cartLayout"
+        app:layout_constraintTop_toBottomOf="@id/textViewTotal" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

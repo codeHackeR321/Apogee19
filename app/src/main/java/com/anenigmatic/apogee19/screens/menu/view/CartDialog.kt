@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
 import kotlinx.android.synthetic.main.dia_cart.*
 import kotlinx.android.synthetic.main.dia_cart.view.*
-import kotlinx.android.synthetic.main.fra_stall_list.*
+import kotlinx.android.synthetic.main.dia_past_order_detail.*
 
 class CartDialog: DialogFragment() {
 
@@ -21,26 +21,6 @@ class CartDialog: DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view  = inflater.inflate(R.layout.dia_cart, container, false)
-
-
-        trialList.add("Curry of life")
-        trialList.add("Double chicken roll")
-        trialList.add("Double chicken roll with")
-        trialList.add("Double chicken roll with extra ")
-        trialList.add("Double chicken roll cheese")
-        trialList.add("Double chicken roll with")
-        trialList.add("Double chicken roll with extra ")
-        trialList.add("Double chicken roll cheese")
-        var cartAdapter= CartAdapter(trialList , this)
-        view.recyViewCart.apply {
-            adapter= cartAdapter
-            layoutManager= LinearLayoutManager(view.context)
-        }
-
-        view.closeDialog.setOnClickListener {
-            dismiss()
-        }
-
         return view
     }
 
@@ -51,7 +31,25 @@ class CartDialog: DialogFragment() {
     }
 
     override fun onStart() {
-        diaPastOrderLayout.minHeight = ((parentFragment!!.view!!.height)*0.85).toInt() // Height of dialog is 85% of the fragment width
+        cartLayout.minHeight = ((parentFragment!!.view!!.height)*0.85).toInt()
+        cartLayout.minWidth = ((parentFragment!!.view!!.width)*0.85).toInt()// Height of dialog is 85% of the fragment width
+        trialList.add("Curry of life")
+        trialList.add("Double chicken roll")
+        trialList.add("Double chicken roll with")
+        trialList.add("Double chicken roll with extra ")
+        trialList.add("Double chicken roll cheese")
+        trialList.add("Double chicken roll with")
+        trialList.add("Double chicken roll with extra ")
+        trialList.add("Double chicken roll cheese")
+        var cartAdapter= CartAdapter(trialList , this)
+        view!!.recyViewCart.apply {
+            adapter= cartAdapter
+            layoutManager= LinearLayoutManager(view!!.context)
+        }
+
+        view!!.closeDialog.setOnClickListener {
+            dismiss()
+        }
         super.onStart()
     }
 
