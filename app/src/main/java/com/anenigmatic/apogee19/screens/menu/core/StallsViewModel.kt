@@ -27,6 +27,7 @@ class StallsViewModel(instance: StallListFragment) : ViewModel()
         {
             repository = MenuRepositoryImpl(instance.currentContext!!).getInstance()
         }*/
+        Log.e("Test" , "Repository Created")
         repository = MenuRepositoryImpl(instance.currentContext!!)
     }
 

@@ -37,7 +37,9 @@ class StallListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+
         model = StallsViewModel(this)
+        Log.e("Test" , "ViewModel Created")
         model.loadDataFromCache()
 
         // buttonCart.setColorFilter(view!!.resources.getColor(R.color.vio01),PorterDuff.Mode.SRC_IN)
@@ -55,14 +57,7 @@ class StallListFragment : Fragment() {
                 recyViewMenu.adapter!!.notifyDataSetChanged()
             })
 
-            model.menuList.observe(this@StallListFragment , Observer {stallList ->
-                Log.d("Test" , "Obsreved correctly $stallList")
-                recyViewMenuItems.apply {
-                    adapter = MenuListAdapter(stallList!! , this@StallListFragment)
-                    layoutManager = LinearLayoutManager(currentContext)
-                }
-                recyViewMenuItems.adapter!!.notifyDataSetChanged()
-            })
+
 
         } else {
             Toast.makeText(currentContext , "Please Check your Internet Connection" , Toast.LENGTH_LONG).show()
@@ -95,6 +90,14 @@ class StallListFragment : Fragment() {
         recyViewMenuItems.visibility = View.VISIBLE*/
         startAnimationForRecyclerView(false)
         model.getMenuListForStall(stall.stallId)
+        model.menuList.observe(this@StallListFragment , Observer {stallList ->
+            Log.d("Test" , "Obsreved correctly $stallList")
+            recyViewMenuItems.apply {
+                adapter = MenuListAdapter(stallList!! , this@StallListFragment)
+                layoutManager = LinearLayoutManager(currentContext)
+            }
+            recyViewMenuItems.adapter!!.notifyDataSetChanged()
+        })
         textStallNAme.text = stall.name
         //recyViewMenuItems.adapter!!.notifyDataSetChanged()
     }
