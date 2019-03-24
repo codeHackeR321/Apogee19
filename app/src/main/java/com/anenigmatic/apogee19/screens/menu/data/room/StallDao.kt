@@ -1,14 +1,16 @@
 package com.anenigmatic.apogee19.screens.menu.data.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface StallsDao {
+interface StallDao {
+
     @Query("SELECT * FROM stall")
-    fun getAll(): List<Stall>
+    fun getAll(): LiveData<List<Stall>>
 
     @Insert
     fun insertAll(stalls: List<Stall>)

@@ -8,9 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.anenigmatic.apogee19.R
+import com.anenigmatic.apogee19.screens.menu.data.room.CartItem
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
 
-class CartAdapter(var list : ArrayList<String> , var fragment : CartDialog) : RecyclerView.Adapter<CartAdapter.MyViewHolder>()
+class CartAdapter(var list : List<CartItem> , var fragment : CartDialog) : RecyclerView.Adapter<CartAdapter.MyViewHolder>()
 {
     class MyViewHolder(val view: View): RecyclerView.ViewHolder(view){
 
@@ -40,8 +41,8 @@ class CartAdapter(var list : ArrayList<String> , var fragment : CartDialog) : Re
        holder.nameLBL.setHorizontallyScrolling(true)
         holder.nameLBL.maxLines=1
 
-        holder.nameLBL.text = list[position] /*"${list[position].name}\n${list[position].price}"*/
-        holder.infoLBL.text= "500x2"
+        holder.nameLBL.text = list[position].name /*"${list[position].name}\n${list[position].price}"*/
+        holder.infoLBL.text= "${list[position].price} X ${list[position].quantity}"
 
         holder.minusButton.setOnClickListener {
             fragment.removeItem(list[position])

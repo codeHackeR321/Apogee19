@@ -4,29 +4,30 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.anenigmatic.apogee19.screens.menu.data.StallsRepositoryImpl
+import com.anenigmatic.apogee19.screens.menu.data.MenuRepositoryImpl
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
 import com.anenigmatic.apogee19.screens.menu.view.StallListFragment
 import com.anenigmatic.apogee19.screens.shared.util.asMut
-import java.lang.Exception
 
 class StallsViewModel(instance: StallListFragment) : ViewModel()
 {
     var stallList : LiveData<List<Stall>> = MutableLiveData()
-    var repository : StallsRepositoryImpl? = null
+    var menuList : LiveData<List<StallItem>> = MutableLiveData()
+    var repository : MenuRepositoryImpl? = null
     var fragment = instance
 
     init
     {
-        Log.d("Test" , "Entered init")
+       /* Log.d("Test" , "Entered init")
         try {
-            repository = StallsRepositoryImpl()
+            repository = MenuRepositoryImpl(instance.currentContext!!)
         }
         catch (e : Exception)
         {
-            repository = StallsRepositoryImpl().getInstance()
-        }
+            repository = MenuRepositoryImpl(instance.currentContext!!).getInstance()
+        }*/
+        repository = MenuRepositoryImpl(instance.currentContext!!)
     }
 
     /**
@@ -35,7 +36,7 @@ class StallsViewModel(instance: StallListFragment) : ViewModel()
     fun getStallListFromServer()
     {
         Log.d("Test" , "Entered getStallList of view model")
-        repository!!.getStalls(fragment.currentContext!! ,this)
+        repository!!.refreshStallAndMenu()
     }
 
     /**
@@ -43,7 +44,7 @@ class StallsViewModel(instance: StallListFragment) : ViewModel()
      */
     fun loadDataFromCache()
     {
-        repository!!.getCachedData(fragment.currentContext!! , this)
+        stallList = repository!!.getStalls()
     }
 
     /**Once data has been added to room this method updates the live data variable so that if there are any changes, they can be reflected*/
@@ -54,9 +55,19 @@ class StallsViewModel(instance: StallListFragment) : ViewModel()
     }
 
     /**Runs a Query on the room database to fetch the menu of the corresponding stall is*/
-    fun getMenuListForStall(stall_id : Int) : List<StallItem>
+
+    fun getMenuListForStall(stall_id : Int)
     {
-        return repository!!.getMenu(stall_id)
+        Log.d("Test" , "Obtain ${repository!!.getMenu(stall_id)}")
+        Log.d("Test" , "Obtained Menu List ${menuList.toString()}")
+        menuList = repository!!.getMenu(stall_id)
+        Log.d("Test" , "Obtained Menu List ${menuList.toString()}")
     }
+
+    fun addItemToCart(item : StallItem , quantity : Int)
+    {
+        repository!!.addItemToCart(item , quantity)
+    }
+
 
 }

@@ -12,10 +12,7 @@ import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 
 class StallListAdapter(var dataset :List<Stall> , val fragment : StallListFragment) : RecyclerView.Adapter<StallListAdapter.MyViewHolder>() {
 
-    var frag = fragment
-    var datas = dataset
-
-    class MyViewHolder(val view: View): RecyclerView.ViewHolder(view){
+        class MyViewHolder(val view: View): RecyclerView.ViewHolder(view){
 
         var nameLBL: TextView =view.findViewById(R.id.nameLBL)
         var parent : ConstraintLayout = view.findViewById(R.id.rootPOV)
@@ -36,8 +33,8 @@ class StallListAdapter(var dataset :List<Stall> , val fragment : StallListFragme
 
         holder.nameLBL.text =  dataset[position].name
         holder.parent.setOnClickListener {
-            Log.d("Test" , "onClick of menu item called")
-            fragment.onStallSelected(dataset[position].stall_id)
+            Log.d("Test" , "onClick of menu item called ${dataset[position].stallId}")
+            fragment.onStallSelected(dataset[position])
         }
     }
 

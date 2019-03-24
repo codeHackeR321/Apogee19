@@ -40,7 +40,7 @@ class MenuListAdapter(var list : List<StallItem> , var fragment : StallListFragm
         holder.infoLBL.text= list[position].price.toString()
         holder.starBTN.setImageResource(R.drawable.ic_add)
         holder.starBTN.setOnClickListener{
-            fragment.addItemToCart(list[position])
+            fragment.showQuantitySelectDialog(list[position])
         }
 
     }

@@ -30,32 +30,40 @@ class StallListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view  = inflater.inflate(R.layout.fra_stall_list, container, false)
-
-
         currentContext = view.context
-
         return view
     }
 
     override fun onStart() {
         super.onStart()
+
         model = StallsViewModel(this)
         model.loadDataFromCache()
-       // buttonCart.setColorFilter(view!!.resources.getColor(R.color.vio01),PorterDuff.Mode.SRC_IN)
-        val stallObserver = Observer<List<Stall>>
-        {updatedList ->
-            Log.d("Test" , "Obsreved correctly $updatedList")
-            recyViewMenu.apply {
-                adapter=StallListAdapter(updatedList!! , this@StallListFragment)
-                layoutManager=LinearLayoutManager(currentContext)
-            }
-            recyViewMenu.adapter!!.notifyDataSetChanged()
-        }
+
+        // buttonCart.setColorFilter(view!!.resources.getColor(R.color.vio01),PorterDuff.Mode.SRC_IN)
+
 
         var connectivityManager : ConnectivityManager = currentContext!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnectedOrConnecting) {
             model.getStallListFromServer()
-            model.stallList.observe(this , stallObserver)
+            model.stallList.observe(this@StallListFragment , Observer { updatedList ->
+                Log.d("Test" , "Obsreved correctly $updatedList")
+                recyViewMenu.apply {
+                    adapter=StallListAdapter(updatedList!! , this@StallListFragment)
+                    layoutManager=LinearLayoutManager(currentContext)
+                }
+                recyViewMenu.adapter!!.notifyDataSetChanged()
+            })
+
+            model.menuList.observe(this@StallListFragment , Observer {stallList ->
+                Log.d("Test" , "Obsreved correctly $stallList")
+                recyViewMenuItems.apply {
+                    adapter = MenuListAdapter(stallList!! , this@StallListFragment)
+                    layoutManager = LinearLayoutManager(currentContext)
+                }
+                recyViewMenuItems.adapter!!.notifyDataSetChanged()
+            })
+
         } else {
             Toast.makeText(currentContext , "Please Check your Internet Connection" , Toast.LENGTH_LONG).show()
         }
@@ -80,17 +88,15 @@ class StallListFragment : Fragment() {
      * This function is called when the user clicks on one of the stalls in the list
      */
 
-    fun onStallSelected(stall_id : Int)
+    fun onStallSelected(stall : Stall)
     {
         /**Code to start animation will come here*/
         /*recyViewMenu.visibility = View.INVISIBLE
         recyViewMenuItems.visibility = View.VISIBLE*/
         startAnimationForRecyclerView(false)
-        recyViewMenuItems.apply {
-            adapter=MenuListAdapter(model.getMenuListForStall(stall_id) , this@StallListFragment)
-            layoutManager=LinearLayoutManager(currentContext)
-        }
-        recyViewMenuItems.adapter!!.notifyDataSetChanged()
+        model.getMenuListForStall(stall.stallId)
+        textStallNAme.text = stall.name
+        //recyViewMenuItems.adapter!!.notifyDataSetChanged()
     }
 
     /**
@@ -145,13 +151,16 @@ class StallListFragment : Fragment() {
             activity!!.onBackPressed()
     }
 
-    fun addItemToCart(item : StallItem)
+    fun showQuantitySelectDialog(item : StallItem)
     {
+        var itemcount = 1
         var alertBox = AlertDialog.Builder(currentContext).setPositiveButton("Add" , DialogInterface.OnClickListener { dialog, which ->
-            Toast.makeText(currentContext , "Hello" , Toast.LENGTH_LONG).show()
+                Toast.makeText(currentContext , "Hello $itemcount" , Toast.LENGTH_LONG).show()
+                model.addItemToCart(item , itemcount)
             })
             .setNegativeButton("Cancel" , DialogInterface.OnClickListener { dialog, which ->
                 Toast.makeText(currentContext , "Bye" , Toast.LENGTH_LONG).show()
+                dialog.dismiss()
             })
             .setTitle(item.name)
             .setView(R.layout.row_quantity_select)
@@ -159,19 +168,24 @@ class StallListFragment : Fragment() {
         alertBox.show()
         alertBox.AddButton.setOnClickListener {
             alertBox.TextQuantity.text  = (Integer.parseInt(alertBox.TextQuantity.text.toString()) + 1).toString()
+            itemcount = Integer.parseInt(alertBox.TextQuantity.text.toString())
         }
 
         alertBox.SubtractButton.setOnClickListener {
             if (Integer.parseInt(alertBox.TextQuantity.text.toString()) > 1)
             {
                 alertBox.TextQuantity.text  = (Integer.parseInt(alertBox.TextQuantity.text.toString()) - 1).toString()
+                itemcount = Integer.parseInt(alertBox.TextQuantity.text.toString())
             }
             else
             {
                 Toast.makeText(currentContext , "Atleast One item must be selected" , Toast.LENGTH_LONG).show()
+                itemcount = Integer.parseInt(alertBox.TextQuantity.text.toString())
             }
         }
 
     }
+
+
 
 }
