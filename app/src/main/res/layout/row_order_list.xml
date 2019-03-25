@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sh_rounded_rectangle_16dp"
-    android:layout_marginBottom="16dp"
-   >
+    android:layout_marginBottom="16dp">
 
 
     <TextView
@@ -15,9 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/google_sans_bold"
         android:text="Order #133432"
         android:textColor="@color/yel03"
+        android:layout_marginRight="128dp"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
         app:layout_constraintTop_toTopOf="@id/diaPastOrderLayout" />
@@ -35,30 +36,33 @@
         android:textColor="@color/grn01"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
-        app:layout_constraintTop_toBottomOf="@id/textViewOrderNo" />
+        app:layout_constraintTop_toBottomOf="@id/textViewTotalAmount" />
+
 
     <TextView
-        android:id="@+id/textViewOTP"
+        android:id="@+id/textViewTotalAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="0dp"
-        android:text="OTP: 1499"
+        android:text="\u20B9 10000"
+        android:layout_marginBottom="24dp"
+        android:textAllCaps="true"
         android:textColor="@color/grn01"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/textViewStatus"
+        app:layout_constraintStart_toStartOf="@id/diaPastOrderLayout"
         app:layout_constraintTop_toBottomOf="@id/textViewOrderNo" />
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewTotal"
+        android:id="@+id/otpbutton"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/textViewOrderNo"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:textAlignment="textEnd"
+        android:textAlignment="center"
         android:textSize="20sp"
-        android:text="\u20B9 10000"/>
+        android:text="OTP"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

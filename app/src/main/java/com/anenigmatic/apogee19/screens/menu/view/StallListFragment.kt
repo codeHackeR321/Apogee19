@@ -41,6 +41,7 @@ class StallListFragment : Fragment() {
         model = StallsViewModel(this)
         Log.e("Test" , "ViewModel Created")
         model.loadDataFromCache()
+        model.cartItemsGet()
 
         // buttonCart.setColorFilter(view!!.resources.getColor(R.color.vio01),PorterDuff.Mode.SRC_IN)
 
@@ -57,7 +58,12 @@ class StallListFragment : Fragment() {
                 recyViewMenu.adapter!!.notifyDataSetChanged()
             })
 
-
+            model.cartList.observe(this , Observer {
+                if (it.size == 0)
+                    cartStatus.visibility = View.INVISIBLE
+                else
+                    cartStatus.visibility = View.VISIBLE
+            })
 
         } else {
             Toast.makeText(currentContext , "Please Check your Internet Connection" , Toast.LENGTH_LONG).show()
@@ -65,11 +71,7 @@ class StallListFragment : Fragment() {
 
         // to check the cart layout
 
-        buttonCart.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                CartDialog().show(childFragmentManager , "CartDialog")
-            }
-        })
+        buttonCart.setOnClickListener { CartDialog().show(childFragmentManager , "CartDialog") }
 
         backButton.setOnClickListener {
             startAnimationForRecyclerView(true)
@@ -91,7 +93,7 @@ class StallListFragment : Fragment() {
         startAnimationForRecyclerView(false)
         model.getMenuListForStall(stall.stallId)
         model.menuList.observe(this@StallListFragment , Observer {stallList ->
-            Log.d("Test" , "Obsreved correctly $stallList")
+            Log.d("Test" , "Observed correctly $stallList")
             recyViewMenuItems.apply {
                 adapter = MenuListAdapter(stallList!! , this@StallListFragment)
                 layoutManager = LinearLayoutManager(currentContext)
@@ -149,7 +151,11 @@ class StallListFragment : Fragment() {
     override fun onDestroyOptionsMenu() {
         Toast.makeText(currentContext , "Entered backstack" , Toast.LENGTH_LONG).show()
         if (recyViewMenuItems.isVisible)
+        {
             startAnimationForRecyclerView(true)
+            model.menuList.removeObservers(this)
+        }
+
         else
             activity!!.onBackPressed()
     }
@@ -158,11 +164,10 @@ class StallListFragment : Fragment() {
     {
         var itemcount = 1
         var alertBox = AlertDialog.Builder(currentContext).setPositiveButton("Add" , DialogInterface.OnClickListener { dialog, which ->
-                Toast.makeText(currentContext , "Hello $itemcount" , Toast.LENGTH_LONG).show()
                 model.addItemToCart(item , itemcount)
+            Toast.makeText(currentContext , "Added  $itemcount ${item.name} to cart successfully" , Toast.LENGTH_LONG).show()
             })
             .setNegativeButton("Cancel" , DialogInterface.OnClickListener { dialog, which ->
-                Toast.makeText(currentContext , "Bye" , Toast.LENGTH_LONG).show()
                 dialog.dismiss()
             })
             .setTitle(item.name)

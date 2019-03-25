@@ -52,6 +52,9 @@
             app:srcCompat="@drawable/ic_wiggly_line" />
 
 
+
+
+
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,6 +66,17 @@
             android:id="@+id/buttonCart"
             android:layout_marginTop="12dp"
             app:layout_constraintTop_toTopOf="@+id/guidelinehorizontal"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:cropToPadding="true"
+        app:layout_constraintTop_toTopOf="@+id/guidelinehorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/cartStatus"
+        android:src="@drawable/ic_cart_status"
+        android:layout_marginTop="8dp"/>
 
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"

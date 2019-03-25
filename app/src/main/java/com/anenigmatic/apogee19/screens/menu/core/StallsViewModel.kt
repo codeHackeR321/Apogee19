@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.anenigmatic.apogee19.ApogeeApp
 import com.anenigmatic.apogee19.screens.menu.data.MenuRepositoryImpl
+import com.anenigmatic.apogee19.screens.menu.data.room.CartItem
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
 import com.anenigmatic.apogee19.screens.menu.view.StallListFragment
@@ -14,6 +16,7 @@ class StallsViewModel(instance: StallListFragment) : ViewModel()
 {
     var stallList : LiveData<List<Stall>> = MutableLiveData()
     var menuList : LiveData<List<StallItem>> = MutableLiveData()
+    var cartList : LiveData<List<CartItem>> = MutableLiveData()
     var repository : MenuRepositoryImpl? = null
     var fragment = instance
 
@@ -28,7 +31,8 @@ class StallsViewModel(instance: StallListFragment) : ViewModel()
             repository = MenuRepositoryImpl(instance.currentContext!!).getInstance()
         }*/
         Log.e("Test" , "Repository Created")
-        repository = MenuRepositoryImpl(instance.currentContext!!)
+        //repository = MenuRepositoryImpl(instance.currentContext!!)
+        repository = ApogeeApp.menuRepository
     }
 
     /**
@@ -59,15 +63,17 @@ class StallsViewModel(instance: StallListFragment) : ViewModel()
 
     fun getMenuListForStall(stall_id : Int)
     {
-        Log.d("Test" , "Obtain ${repository!!.getMenu(stall_id)}")
-        Log.d("Test" , "Obtained Menu List ${menuList.toString()}")
         menuList = repository!!.getMenu(stall_id)
-        Log.d("Test" , "Obtained Menu List ${menuList.toString()}")
     }
 
     fun addItemToCart(item : StallItem , quantity : Int)
     {
         repository!!.addItemToCart(item , quantity)
+    }
+
+    fun cartItemsGet()
+    {
+        cartList =  repository!!.getCartItems()
     }
 
 

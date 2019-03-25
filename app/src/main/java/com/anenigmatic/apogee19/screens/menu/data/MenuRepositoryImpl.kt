@@ -29,6 +29,25 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
         GsonConverterFactory.create()).build()
     var apiService = retrofit.create(StallsAndMenuApi::class.java)
 
+   /* @Volatile
+    private var soleInstance : MenuRepositoryImpl? = null
+
+
+
+    fun getInstance(context: Context): MenuRepositoryImpl {
+        //Double check locking pattern
+        if (soleInstance == null) { //Check for the first time
+
+            synchronized(MenuRepositoryImpl::class.java) {
+                //Check for the second time.
+                //if there is no instance available... create new one
+                if (soleInstance == null) soleInstance = MenuRepositoryImpl(context)
+            }
+        }
+
+        return soleInstance!!
+    }*/
+
     override fun getStalls(): LiveData<List<Stall>> {
         return stallDao.getAll()
     }
@@ -155,14 +174,10 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
 
     }
 
-    /*fun try_getMenu(stall : Int) : List<StallItem>
-    {
-        return stallItemDao.getStallItemsList(stall)
-    }*/
-
     override fun deleteCartItem(item: CartItem) {
         cartItemDao.delete(item)
     }
+
 
 
 }
