@@ -4,14 +4,13 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Room
+import com.anenigmatic.apogee19.screens.menu.data.retrofit.Order
 import com.anenigmatic.apogee19.screens.menu.data.retrofit.OrderComfirmation
-import com.anenigmatic.apogee19.screens.menu.data.room.CartItem
-import com.anenigmatic.apogee19.screens.menu.data.room.Stall
-import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
-import com.anenigmatic.apogee19.screens.menu.data.room.StallsAndMenuDataBase
+import com.anenigmatic.apogee19.screens.menu.data.room.*
 import com.example.manish.apogeewallet.screens.menu.data.retrofit.CartOrder
 import com.example.manish.apogeewallet.screens.menu.data.retrofit.StallAndMenu
 import com.example.manish.apogeewallet.screens.menu.data.retrofit.StallsAndMenuApi
+import com.example.manish.apogeewallet.screens.menu.data.room.PastOrder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +27,8 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
     var retrofit = Retrofit.Builder().baseUrl("http://139.59.64.214/wallet/").addConverterFactory(
         GsonConverterFactory.create()).build()
     var apiService = retrofit.create(StallsAndMenuApi::class.java)
+    var pastOrderDao = database.pastOrderDao()
+    var pastOrderItemDao = database.pastOrderItemsDao()
 
    /* @Volatile
     private var soleInstance : MenuRepositoryImpl? = null
@@ -178,6 +179,63 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
         cartItemDao.delete(item)
     }
 
+    override fun getOrders(): LiveData<List<PastOrder>> {
 
+        return pastOrderDao.getAll()
+    }
 
+    override fun getOrderItems(orderId: Int): LiveData<List<OrderItem>> {
+
+        return pastOrderItemDao.getPastOrderItemsList(orderId)
+    }
+
+    override fun changeOrderOtpStatus(orderId: Int) {
+
+        pastOrderDao.changeOtpSeenStatus(orderId, true)
+    }
+
+    override fun changeOrderStatus(orderId: Int, status: String) {
+
+        pastOrderDao.changeStatus(orderId, status)
+    }
+
+    override fun refreshPastOrders() {
+
+        var call = apiService.getPastOrders()
+        call.enqueue(object : Callback<List<Order>> {
+
+            override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
+
+                if(!response.isSuccessful){
+                    Log.d("Menu call response code", response.code().toString())
+                    return
+                }
+
+                pastOrderDao.deleteAll()
+                pastOrderItemDao.deleteAll()
+
+                var responseBody = response.body()
+                var orderList : ArrayList<PastOrder> = ArrayList(responseBody!!.size)
+                var orderItemList : ArrayList<OrderItem> = ArrayList(responseBody.size)
+                Log.d("Test" , "Size of response = $responseBody")
+                responseBody.forEach {order ->
+                    order.menu.forEach {
+                        orderItemList.add(OrderItem(it.id, it.itemId, it.stallId, it.orderId, it.name, it.price, it.quantity))
+                    }
+                    orderList.add(PastOrder(order.orderId , order.name , order.price, order.otp, order.status, order.showotp))
+
+                }
+
+                Log.d("Test" , "Pass variable = $orderList")
+                Log.d("Test" , "Pass2 variable = $orderItemList")
+
+                pastOrderDao.insertPastOrders(orderList)
+                pastOrderItemDao.insertOrderItem(orderItemList)
+
+            }
+            override fun onFailure(call: Call<List<Order>>, t: Throwable) {
+                Log.d("Menu call response" , "" + t.message.toString())
+            }
+        })
+    }
 }

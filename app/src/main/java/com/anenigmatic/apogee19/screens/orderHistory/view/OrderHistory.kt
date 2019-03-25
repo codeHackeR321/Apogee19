@@ -6,13 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
+import com.anenigmatic.apogee19.screens.orderHistory.core.OrderHistoryViewModel
 import kotlinx.android.synthetic.main.fra_order_history.*
+import kotlinx.android.synthetic.main.fra_order_history.view.*
 
 class OrderHistory : Fragment() {
 
     private var currentContext : Context? = null
+    lateinit var model: OrderHistoryViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -22,19 +27,30 @@ class OrderHistory : Fragment() {
     }
 
     override fun onStart() {
-        var list : ArrayList<String> = ArrayList(3)
-        list.add("Hello")
-        list.add("How are you")
-        list.add("This is an array list")
-        recyViewMenu.adapter = OrderHistoryAdapter(list , this)
-        recyViewMenu.layoutManager = LinearLayoutManager(currentContext)
-        recyViewMenu.adapter!!.notifyDataSetChanged()
+
+        model = OrderHistoryViewModel(this)
+        model.getOrderListFromServer()
+        model.orderList.observe(this, Observer {
+
+            recyViewMenu.adapter = OrderHistoryAdapter(it , this)
+            recyViewMenu.layoutManager = LinearLayoutManager(currentContext)
+            recyViewMenu.adapter!!.notifyDataSetChanged()
+
+        })
+
+        view!!.screenTitleLBL.setOnClickListener {
+
+            OrderDetailDialog().show(childFragmentManager, "OrderDetail")
+        }
+
         super.onStart()
     }
 
-    fun onOrederClicked(order : String)
+    fun onOrderClicked(orderId : Int)
     {
-        OrderDetailDialog().show(childFragmentManager , "OrderDetailDialog")
+        //To be implemented later
+        model.getOrderListForOrder(orderId)
+        OrderDetailDialog().apply { arguments = bundleOf("Order ID" to orderId) }.show(childFragmentManager , "OrderDetailDialog")
     }
 
 

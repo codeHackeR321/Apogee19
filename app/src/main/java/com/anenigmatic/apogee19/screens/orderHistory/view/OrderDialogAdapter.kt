@@ -5,12 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.anenigmatic.apogee19.screens.menu.data.room.OrderItem
 
-class OrderDialogAdapter(private var dataset : ArrayList<String>, private val fragment : OrderDetailDialog) : RecyclerView.Adapter<OrderDialogAdapter.MyViewHolder>() {
+class OrderDialogAdapter(private var dataset : List<OrderItem>, private val fragment : OrderDetailDialog) : RecyclerView.Adapter<OrderDialogAdapter.MyViewHolder>() {
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+
         var nameLBL: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.nameLBL)
         var infoLBL: TextView= view.findViewById(com.anenigmatic.apogee19.R.id.infoLBL)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): OrderDialogAdapter.MyViewHolder {
@@ -29,8 +32,9 @@ class OrderDialogAdapter(private var dataset : ArrayList<String>, private val fr
 
     override fun onBindViewHolder(holder: OrderDialogAdapter.MyViewHolder, position: Int) {
 
-        holder.nameLBL.text ="The Starry Night Profshow"
-        holder.infoLBL.text="\u20B9 500x2"
+
+        holder.nameLBL.text = dataset[position].name
+        holder.infoLBL.text="\u20B9 ${dataset[position].price} X ${dataset[position].quantity}"
 
     }
 }

@@ -3,19 +3,21 @@ package com.anenigmatic.apogee19.screens.orderHistory.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.anenigmatic.apogee19.R
+import com.example.manish.apogeewallet.screens.menu.data.room.PastOrder
 import kotlinx.android.synthetic.main.row_order_list.view.*
 
 
-class OrderHistoryAdapter(private var dataset : ArrayList<String>, private val fragment : OrderHistory) : RecyclerView.Adapter<OrderHistoryAdapter.MyViewHolder>() {
+class OrderHistoryAdapter(private var dataset : List<PastOrder>, private val fragment : OrderHistory) : RecyclerView.Adapter<OrderHistoryAdapter.MyViewHolder>() {
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         var textViewOrderNo: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewOrderNo)
         var textViewStatus: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewStatus)
-        var textViewOTP: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewOTP)
+        var textViewOTP: Button = view.findViewById(com.anenigmatic.apogee19.R.id.textViewOTP)
         var textViewTotal: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewTotal)
         var parents : ConstraintLayout = view.findViewById(R.id.diaPastOrderLayout)
     }
@@ -37,7 +39,18 @@ class OrderHistoryAdapter(private var dataset : ArrayList<String>, private val f
     override fun onBindViewHolder(holder: OrderHistoryAdapter.MyViewHolder, position: Int) {
 
         holder.parents.setOnClickListener {
-            fragment.onOrederClicked(dataset[position])
+            fragment.onOrderClicked(dataset[position].orderId)
+        }
+
+        holder.textViewOrderNo.text = "Order #"+dataset[position].orderId.toString()
+        holder.textViewStatus.text = dataset[position].status.capitalize()
+        holder.textViewTotal.text = "\u20B9 "+dataset[position].price.toString()
+
+        if (dataset[position].showOtp){
+
+            holder.textViewOTP.text = dataset[position].otp.toString()
+            holder.textViewOTP.isClickable = false
+
         }
     }
 
