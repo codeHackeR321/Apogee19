@@ -11,7 +11,9 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
+import com.anenigmatic.apogee19.screens.menu.data.room.OrderItem
 import com.anenigmatic.apogee19.screens.orderHistory.core.OrderHistoryViewModel
+import com.example.manish.apogeewallet.screens.menu.data.room.PastOrder
 import kotlinx.android.synthetic.main.fra_order_history.*
 import kotlinx.android.synthetic.main.fra_order_history.view.*
 
@@ -19,6 +21,8 @@ class OrderHistory : Fragment() {
 
     private var currentContext : Context? = null
     lateinit var model: OrderHistoryViewModel
+    var observer : Observer<List<OrderItem>>? = null
+    lateinit var list : List<PastOrder>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -29,10 +33,15 @@ class OrderHistory : Fragment() {
 
     override fun onStart() {
 
+        //TODO To be checked
+        if (observer != null)
+            model.orderItemList.removeObserver(observer!!)
+
         model = OrderHistoryViewModel(this)
         model.getOrderListFromServer()
         model.orderList.observe(this, Observer {
-
+            list = ArrayList(it)
+            Log.d("Testing","model.orderList observed")
             recyViewMenu.adapter = OrderHistoryAdapter(it , this)
             recyViewMenu.layoutManager = LinearLayoutManager(currentContext)
             recyViewMenu.adapter!!.notifyDataSetChanged()
@@ -42,22 +51,45 @@ class OrderHistory : Fragment() {
         super.onStart()
     }
 
-    fun onOrderClicked(orderId : Int)
+    fun onOrderClicked(orderId : Int , position : Int)
     {
+
+        //TODO To be checked
+        if (observer != null)
+            model.orderItemList.removeObserver(observer!!)
+
+        Log.d("Testing","onOrderClicked invoked")
         //To be implemented later
         model.getOrderListForOrder(orderId)
-        model.orderItemList.observe(this, Observer {
 
-            Log.d("Test", it.toString())
+        observer = Observer {
+
+            var name = "Domino's"
+            var totalPrice = 0
+            it.forEach {item ->
+                totalPrice += item.price * item.quantity
+            }
 
             OrderDetailDialog().apply {
                 arguments = bundleOf(
-                    "Order ID" to orderId,
+                    "Stall Name" to list[position].name,
+                    "Total Price" to totalPrice,
+                    "OTP" to list[position].otp,
+                    "Status" to list[position].status ,
                     "Order List" to it.map { item -> "${item.stallId}<|>${item.name}<|>${item.price}<|>${item.quantity}" }
                 )
             }.show(childFragmentManager , "OrderDetailDialog")
-        })
+        }
+        model.orderItemList.observe(this, observer!!)
 
+    }
+
+    override fun onResume() {
+
+        //TODO To be checked
+        if (observer != null)
+            model.orderItemList.removeObserver(observer!!)
+        super.onResume()
     }
 
 }

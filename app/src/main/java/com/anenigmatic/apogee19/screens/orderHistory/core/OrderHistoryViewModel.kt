@@ -1,10 +1,12 @@
 package com.anenigmatic.apogee19.screens.orderHistory.core
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.anenigmatic.apogee19.ApogeeApp
 import com.anenigmatic.apogee19.screens.menu.data.room.OrderItem
+import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.orderHistory.view.OrderHistory
 import com.example.manish.apogeewallet.screens.menu.data.room.PastOrder
 
@@ -27,15 +29,9 @@ class OrderHistoryViewModel(fragmentPassed: OrderHistory): ViewModel(){
 
     }
 
-    fun displayOtp(orderId: Int){
-
-        repository.changeOrderOtpStatus(orderId)
-
-    }
-
-    fun changeStatus(orderId: Int, status: String){
-
-        repository.changeOrderStatus(orderId, status)
+    fun getStallListFromServer(): LiveData<List<Stall>>
+    {
+        return repository.getStalls()
     }
 
     fun onOTPClicked(orderId: Int){

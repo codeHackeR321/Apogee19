@@ -12,26 +12,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.anenigmatic.apogee19.ApogeeApp
 import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.screens.menu.data.room.OrderItem
-import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
-import kotlinx.android.synthetic.main.dia_cart.view.*
 import kotlinx.android.synthetic.main.dia_past_order_detail.*
+import kotlinx.android.synthetic.main.dia_past_order_detail.view.*
 
 class OrderDetailDialog : DialogFragment() {
 
     private var currentContext : Context? = null
-    private val orderId by lazy {
-        arguments!!.get("Order ID") as Int
+    private val totalPrice by lazy {
+        arguments!!.get("Total Price") as Int
     }
     private val orderItems by lazy {
         arguments!!.getStringArrayList("Order List")!!.map { str ->
             val strs = str.split("<|>")
             OrderItem(0, 0, 0, strs[0].toInt(), strs[1], strs[2].toInt(), strs[3].toInt())
         }
+    }
+    private val otp by lazy {
+        arguments!!.get("OTP") as Int
+    }
+    private val status by lazy {
+        arguments!!.get("Status") as String
+    }
+    private val stallName by lazy {
+        arguments!!.get("Stall Name") as String
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,6 +62,22 @@ class OrderDetailDialog : DialogFragment() {
         diaPastOrderLayout.minWidth = ((parentFragment!!.view!!.width)*0.85).toInt()
         closeDialog.setColorFilter(view!!.resources.getColor(R.color.yel03), PorterDuff.Mode.SRC_IN)
 
+        view!!.textViewTotal.text = "Total: \u20B9 $totalPrice"
+        view!!.textViewOrderNo.text = "Order #${orderItems.first().orderId}"
+        if (status >= "2")
+            view!!.textViewOTP.text = "OTP : ${otp}"
+        else
+            view!!.textViewOTP.text = "OTP : ????"
+        view!!.textViewStatus.text = when(status)
+        {
+            "0" -> "Pending"
+            "1" -> "Accepted"
+            "2" -> "Ready"
+            "3" -> "OTP has been used"
+            "4" -> "Declined"
+            else -> "????"
+        }
+        view!!.textViewVendorName.text = stallName
         //items.sortedBy { it.stallId }
         recyViewCart.adapter = OrderDialogAdapter(orderItems)
         Log.d("Test","orderItems: $orderItems")

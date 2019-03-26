@@ -1,5 +1,6 @@
 package com.anenigmatic.apogee19.screens.orderHistory.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,7 @@ class OrderHistoryAdapter(private var dataset : List<PastOrder>, private val fra
         var textViewStatus: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewStatus)
         var textViewOTP: Button = view.findViewById(com.anenigmatic.apogee19.R.id.otpbutton)
         var textViewTotal: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewTotalAmount)
-        var parents : ConstraintLayout = view.findViewById(R.id.diaPastOrderLayout)
+        var parents : View = view.findViewById(R.id.view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): OrderHistoryAdapter.MyViewHolder {
@@ -39,25 +40,40 @@ class OrderHistoryAdapter(private var dataset : List<PastOrder>, private val fra
 
     override fun onBindViewHolder(holder: OrderHistoryAdapter.MyViewHolder, position: Int) {
 
-        holder.parents.setOnClickListener {
-
-            fragment.onOrderClicked(dataset[position].orderId)
-        }
+        holder.textViewOTP.isClickable = true
 
         holder.textViewOTP.setOnClickListener {
 
             fragment.model.onOTPClicked(dataset[position].orderId)
         }
 
+        holder.parents.setOnClickListener {
+
+            Log.d("Testing", "Parent clicked")
+            fragment.onOrderClicked(dataset[position].orderId , position)
+        }
+
         holder.textViewOrderNo.text = "Order #"+dataset[position].orderId.toString()
+        holder.textViewStatus.text = when(dataset[position].status){
+
+            "0" -> "Pending"
+            "1" -> "Accepted"
+            "2" -> "Ready"
+            "3" -> "OTP has been used"
+            "4" -> "Declined"
+            else -> "????"
+        }
+
         holder.textViewStatus.text = dataset[position].status.capitalize()
         holder.textViewTotal.text = "\u20B9 "+dataset[position].price.toString()
 
         if (dataset[position].showOtp){
 
             holder.textViewOTP.text = dataset[position].otp.toString()
-            holder.textViewOTP.isClickable = false
 
+        }else
+        {
+            holder.textViewOTP.isClickable = false
         }
     }
 
