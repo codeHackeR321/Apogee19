@@ -78,11 +78,11 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
 
                 var responseBody = response.body()
                 var stallList : ArrayList<Stall> = ArrayList(responseBody!!.size)
-                var menuList : ArrayList<StallItem> = ArrayList(responseBody!!.size)
+                var menuList : ArrayList<StallItem> = ArrayList(responseBody.size)
                 Log.d("Test" , "Size of response = $responseBody")
-                responseBody!!.forEach {
+                responseBody.forEach {
                     stallList.add(Stall(it.stallId , it.name , it.description , it.isClosed))
-                    it.menu!!.forEach { stallItem ->
+                    it.menu.forEach { stallItem ->
                         menuList.add(StallItem(stallItem.itemId , stallItem.stallId, stallItem.name, stallItem.price , stallItem.isAvailable))
                     }
                 }
@@ -235,7 +235,9 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
 
                 var responseBody = response.body()
                 var orderList : ArrayList<PastOrder> = ArrayList(responseBody!!.size)
-                var orderItemList : ArrayList<OrderItem> = ArrayList(responseBody.size)
+                var responseOrderItemList : ArrayList<ResponseOrderItem> = ArrayList(responseBody.size)
+                val orderItemList: ArrayList<OrderItem> = ArrayList(responseBody.size)
+
                 Log.d("Test" , "Size of response = $responseBody")
                 try {
 
@@ -244,7 +246,9 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
                         orderShell.order.forEach {order ->
 
                             order.menu.forEach {
-                                orderItemList.add(OrderItem(0, it.itemId, it.stallId, it.orderId, it.name, it.price, it.quantity))
+                                responseOrderItemList.add(ResponseOrderItem(it.itemId, it.name, it.price, it.quantity))
+                                orderItemList.add(OrderItem(0, order.orderId, orderShell.shellId, it.itemId,
+                                    it.name, it.price, it.quantity ))
                             }
                             orderList.add(PastOrder(order.orderId , order.vendor.name , order.price, order.otp, order.status, order.showotp))
 
@@ -253,7 +257,7 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
                     }
 
                     Log.d("Test" , "Pass variable = $orderList")
-                    Log.d("Test" , "Pass2 variable = $orderItemList")
+                    Log.d("Test" , "Pass2 variable = $responseOrderItemList")
 
                     pastOrderDao.insertPastOrders(orderList)
                     pastOrderItemDao.insertOrderItem(orderItemList)

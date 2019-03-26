@@ -11,5 +11,5 @@ data class Order(
     @SerializedName("otp") var otp: Int,
     @SerializedName("status") var status: String,
     var showotp: Boolean = false,
-    @SerializedName("items") var menu: List<OrderItem>
+    @SerializedName("items") var menu: List<ResponseOrderItem>
 )

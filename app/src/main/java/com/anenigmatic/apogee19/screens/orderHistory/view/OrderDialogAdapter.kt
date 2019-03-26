@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.anenigmatic.apogee19.screens.menu.data.room.OrderItem
 
-class OrderDialogAdapter(private var dataset : List<OrderItem>, private val fragment : OrderDetailDialog) : RecyclerView.Adapter<OrderDialogAdapter.MyViewHolder>() {
+class OrderDialogAdapter(private var dataset : List<OrderItem>) : RecyclerView.Adapter<OrderDialogAdapter.MyViewHolder>() {
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
