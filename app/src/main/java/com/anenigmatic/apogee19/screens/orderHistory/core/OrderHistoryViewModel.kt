@@ -37,4 +37,10 @@ class OrderHistoryViewModel(fragmentPassed: OrderHistory): ViewModel(){
 
         repository.changeOrderStatus(orderId, status)
     }
+
+    fun onOTPClicked(orderId: Int){
+
+        repository.changeOrderOtpStatus(orderId)
+
+    }
 }

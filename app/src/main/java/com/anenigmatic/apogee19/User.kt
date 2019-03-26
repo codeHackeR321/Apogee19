@@ -2,5 +2,5 @@ package com.anenigmatic.apogee19
 
 object User {
 
-    const val jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1ODQ4NzI5MjQsInVzZXJuYW1lIjoiZWR3YXJkIiwidXNlcl9pZCI6MSwiZW1haWwiOiIifQ.UppvJ3UI5FTdPVOvIzyayU_OFov8Wtc-oVDlBMDslP4"
+    const val jwt = "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVkd2FyZCIsImVtYWlsIjoiIiwiZXhwIjoxNTg1MTU2MzE4LCJ1c2VyX2lkIjoxfQ.EQyyPqeGDN6rjAXY9NYliXE1T5nsZJwNvj5-9buY15o"
 }

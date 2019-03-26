@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.anenigmatic.apogee19.R
+import com.anenigmatic.apogee19.screens.menu.data.MenuRepositoryImpl
 import com.example.manish.apogeewallet.screens.menu.data.room.PastOrder
 import kotlinx.android.synthetic.main.row_order_list.view.*
 
@@ -17,8 +18,8 @@ class OrderHistoryAdapter(private var dataset : List<PastOrder>, private val fra
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         var textViewOrderNo: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewOrderNo)
         var textViewStatus: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewStatus)
-        var textViewOTP: Button = view.findViewById(com.anenigmatic.apogee19.R.id.textViewOTP)
-        var textViewTotal: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewTotal)
+        var textViewOTP: Button = view.findViewById(com.anenigmatic.apogee19.R.id.otpbutton)
+        var textViewTotal: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewTotalAmount)
         var parents : ConstraintLayout = view.findViewById(R.id.diaPastOrderLayout)
     }
 
@@ -39,7 +40,13 @@ class OrderHistoryAdapter(private var dataset : List<PastOrder>, private val fra
     override fun onBindViewHolder(holder: OrderHistoryAdapter.MyViewHolder, position: Int) {
 
         holder.parents.setOnClickListener {
+
             fragment.onOrderClicked(dataset[position].orderId)
+        }
+
+        holder.textViewOTP.setOnClickListener {
+
+            fragment.model.onOTPClicked(dataset[position].orderId)
         }
 
         holder.textViewOrderNo.text = "Order #"+dataset[position].orderId.toString()

@@ -38,11 +38,6 @@ class OrderHistory : Fragment() {
 
         })
 
-        view!!.screenTitleLBL.setOnClickListener {
-
-            OrderDetailDialog().show(childFragmentManager, "OrderDetail")
-        }
-
         super.onStart()
     }
 
@@ -52,6 +47,5 @@ class OrderHistory : Fragment() {
         model.getOrderListForOrder(orderId)
         OrderDetailDialog().apply { arguments = bundleOf("Order ID" to orderId) }.show(childFragmentManager , "OrderDetailDialog")
     }
-
 
 }

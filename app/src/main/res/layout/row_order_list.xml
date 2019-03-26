@@ -54,15 +54,15 @@
         app:layout_constraintTop_toBottomOf="@id/textViewOrderNo" />
 
     <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/otpbutton"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/textViewOrderNo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="OTP"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/otpbutton"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="@id/diaPastOrderLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/textViewOrderNo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:text="OTP" android:background="#0000ffff"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
