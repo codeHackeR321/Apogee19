@@ -54,7 +54,7 @@ class StallListFragment : Fragment() {
             model.stallList.observe(this@StallListFragment , Observer { updatedList ->
                 Log.d("Test" , "Obsreved correctly $updatedList")
                 recyViewMenu.apply {
-                    adapter=StallListAdapter(updatedList!! , this@StallListFragment)
+                    adapter=StallListAdapter(updatedList.filter { !it.isClosed } , this@StallListFragment)
                     layoutManager=LinearLayoutManager(currentContext)
                 }
                 recyViewMenu.adapter!!.notifyDataSetChanged()
@@ -97,7 +97,7 @@ class StallListFragment : Fragment() {
         model.menuList.observe(this@StallListFragment , Observer {stallList ->
             Log.d("Test" , "Observed correctly $stallList")
             recyViewMenuItems.apply {
-                adapter = MenuListAdapter(stallList!! , this@StallListFragment)
+                adapter = MenuListAdapter(stallList!!.filter { it.isAvailable } , this@StallListFragment)
                 layoutManager = LinearLayoutManager(currentContext)
             }
             recyViewMenuItems.adapter!!.notifyDataSetChanged()

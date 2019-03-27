@@ -27,7 +27,7 @@ class OrderDetailDialog : DialogFragment() {
     private val orderItems by lazy {
         arguments!!.getStringArrayList("Order List")!!.map { str ->
             val strs = str.split("<|>")
-            OrderItem(0, 0, 0, strs[0].toInt(), strs[1], strs[2].toInt(), strs[3].toInt())
+            OrderItem(0, strs[0].toInt(), 0, 0, strs[1], strs[2].toInt(), strs[3].toInt())
         }
     }
     private val otp by lazy {

@@ -8,11 +8,10 @@ import com.anenigmatic.apogee19.screens.menu.data.MenuRepositoryImpl
 import com.anenigmatic.apogee19.screens.menu.data.room.CartItem
 import com.anenigmatic.apogee19.screens.menu.view.CartDialog
 
-class CartViewModel(instance : CartDialog) : ViewModel()
+class CartViewModel() : ViewModel()
 {
     var cartList : LiveData<List<CartItem>> = MutableLiveData<List<CartItem>>()
     var repository : MenuRepositoryImpl? = null
-    var fragment = instance
 
     init
     {

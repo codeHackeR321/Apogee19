@@ -13,4 +13,5 @@ interface EventsComponent {
     fun inject(factory: EventDetailsViewModelFactory)
 
     fun inject(factory: EventFilterViewModelFactory)
+
 }
