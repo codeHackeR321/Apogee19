@@ -22,7 +22,7 @@ class OrderHistory : Fragment() {
     private var currentContext : Context? = null
     lateinit var model: OrderHistoryViewModel
     var observer : Observer<List<OrderItem>>? = null
-    lateinit var list : List<PastOrder>
+    var list : List<PastOrder> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -40,12 +40,14 @@ class OrderHistory : Fragment() {
         model = OrderHistoryViewModel(this)
         model.getOrderListFromServer()
         model.orderList.observe(this, Observer {
-            list = ArrayList(it)
-            Log.d("Testing","model.orderList observed")
-            recyViewMenu.adapter = OrderHistoryAdapter(it , this)
-            recyViewMenu.layoutManager = LinearLayoutManager(currentContext)
-            recyViewMenu.adapter!!.notifyDataSetChanged()
 
+            Log.d("Testing","model.orderList observed")
+            if (list.isEmpty()) {
+                recyViewMenu.adapter = OrderHistoryAdapter(it , this)
+                recyViewMenu.layoutManager = LinearLayoutManager(currentContext)
+            }
+            recyViewMenu.adapter!!.notifyDataSetChanged()
+            list = ArrayList(it)
         })
 
         super.onStart()

@@ -6,7 +6,7 @@
                                                    android:animateLayoutChanges="true"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   android:background="@drawable/gd_pink02_pink03">
+                                                   android:background="@drawable/gd_yel01_yel02">
 
     <ImageView
             android:id="@+id/backgroundPatternIMG"
@@ -68,15 +68,14 @@
             app:layout_constraintTop_toTopOf="@+id/guidelinehorizontal"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:cropToPadding="true"
-        app:layout_constraintTop_toTopOf="@+id/guidelinehorizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/cartStatus"
-        android:src="@drawable/ic_cart_status"
-        android:layout_marginTop="8dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:cropToPadding="true"
+            android:id="@+id/cartStatus"
+            android:src="@drawable/ic_cart_status"
+            app:layout_constraintEnd_toEndOf="@+id/backgroundPatternIMG" android:layout_marginEnd="18dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/guidelinehorizontal"
+            android:visibility="invisible"/>
 
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"

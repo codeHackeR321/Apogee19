@@ -24,7 +24,7 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
     var stallDao = database.stallDao()
     var stallItemDao = database.stallItemDao()
     var cartItemDao = database.cartItemDao()
-    var retrofit = Retrofit.Builder().baseUrl("http://test.bits-apogee.org/2019/wallet/").addConverterFactory(
+    var retrofit = Retrofit.Builder().baseUrl("http://test.bits-apogee.org/2019/").addConverterFactory(
         GsonConverterFactory.create()).build()
     var apiService = retrofit.create(StallsAndMenuApi::class.java)
     var pastOrderDao = database.pastOrderDao()

@@ -5,7 +5,7 @@
     android:id="@+id/rootPOV"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gd_yel01_yel02">
+    android:background="@drawable/gd_yel04_yel05">
 
     <ImageView
         android:id="@+id/backgroundPatternIMG"

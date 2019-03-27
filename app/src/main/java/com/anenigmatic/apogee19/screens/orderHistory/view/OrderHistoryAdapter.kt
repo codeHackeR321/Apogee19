@@ -21,7 +21,7 @@ class OrderHistoryAdapter(private var dataset : List<PastOrder>, private val fra
         var textViewStatus: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewStatus)
         var textViewOTP: Button = view.findViewById(com.anenigmatic.apogee19.R.id.otpbutton)
         var textViewTotal: TextView = view.findViewById(com.anenigmatic.apogee19.R.id.textViewTotalAmount)
-        var parents : View = view.findViewById(R.id.view)
+        var parents : ConstraintLayout = view.findViewById(R.id.view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): OrderHistoryAdapter.MyViewHolder {
@@ -40,10 +40,8 @@ class OrderHistoryAdapter(private var dataset : List<PastOrder>, private val fra
 
     override fun onBindViewHolder(holder: OrderHistoryAdapter.MyViewHolder, position: Int) {
 
-        holder.textViewOTP.isClickable = true
-
         holder.textViewOTP.setOnClickListener {
-
+            Log.d("Test" , "OTP button clicked")
             fragment.model.onOTPClicked(dataset[position].orderId)
         }
 
@@ -59,21 +57,17 @@ class OrderHistoryAdapter(private var dataset : List<PastOrder>, private val fra
             "0" -> "Pending"
             "1" -> "Accepted"
             "2" -> "Ready"
-            "3" -> "OTP has been used"
+            "3" -> "Completed"
             "4" -> "Declined"
             else -> "????"
         }
 
-        holder.textViewStatus.text = dataset[position].status.capitalize()
         holder.textViewTotal.text = "\u20B9 "+dataset[position].price.toString()
 
         if (dataset[position].showOtp){
 
             holder.textViewOTP.text = dataset[position].otp.toString()
 
-        }else
-        {
-            holder.textViewOTP.isClickable = false
         }
     }
 
