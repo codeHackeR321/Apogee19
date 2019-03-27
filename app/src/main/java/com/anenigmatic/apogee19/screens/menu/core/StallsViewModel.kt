@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.anenigmatic.apogee19.ApogeeApp
 import com.anenigmatic.apogee19.screens.menu.data.MenuRepositoryImpl
 import com.anenigmatic.apogee19.screens.menu.data.room.CartItem
+import com.anenigmatic.apogee19.screens.menu.data.room.KIndStoreItemData
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
 import com.anenigmatic.apogee19.screens.menu.view.StallListFragment
@@ -18,6 +19,7 @@ class StallsViewModel(instance: StallListFragment) : ViewModel()
     var menuList : LiveData<List<StallItem>> = MutableLiveData()
     var cartList : LiveData<List<CartItem>> = MutableLiveData()
     var repository : MenuRepositoryImpl? = null
+    var kindStoreList: LiveData<List<KIndStoreItemData>> = MutableLiveData()
     var fragment = instance
 
     init
@@ -76,5 +78,13 @@ class StallsViewModel(instance: StallListFragment) : ViewModel()
         cartList =  repository!!.getCartItems()
     }
 
+    fun refreshMenuListForKindStore()
+    {
+        repository!!.refreshKindStoreItems()
+    }
 
+    fun getMenuListForKindStore()
+    {
+        kindStoreList = repository!!.getKindStoreItems()
+    }
 }

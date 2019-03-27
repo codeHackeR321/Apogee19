@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.StateClass
 import com.anenigmatic.apogee19.screens.menu.core.StallsViewModel
+import com.anenigmatic.apogee19.screens.menu.data.room.KIndStoreItemData
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
 import kotlinx.android.synthetic.main.fra_stall_list.*
@@ -49,6 +50,7 @@ class StallListFragment : Fragment() {
         var connectivityManager : ConnectivityManager = currentContext!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnectedOrConnecting) {
             model.getStallListFromServer()
+            model.refreshMenuListForKindStore()
             model.stallList.observe(this@StallListFragment , Observer { updatedList ->
                 Log.d("Test" , "Obsreved correctly $updatedList")
                 recyViewMenu.apply {
@@ -102,6 +104,23 @@ class StallListFragment : Fragment() {
         })
         textStallNAme.text = stall.name
         //recyViewMenuItems.adapter!!.notifyDataSetChanged()
+    }
+
+    fun onKindStoreSelected(){
+
+        startAnimationForRecyclerView(false)
+        model.getMenuListForKindStore()
+        model.kindStoreList.observe(this, Observer {
+
+            recyViewMenuItems.apply {
+
+                adapter = KindStoreMenuAdapter(it)
+                layoutManager = LinearLayoutManager(currentContext)
+            }
+        })
+
+
+        textStallNAme.text = "Kind Store"
     }
 
     /**

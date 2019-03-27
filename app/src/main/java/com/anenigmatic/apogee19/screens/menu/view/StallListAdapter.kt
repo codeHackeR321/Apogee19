@@ -26,16 +26,28 @@ class StallListAdapter(var dataset :List<Stall> , val fragment : StallListFragme
         return MyViewHolder(view)
     } // create a new view
 
-    override fun getItemCount(): Int = dataset.size
+    override fun getItemCount(): Int = dataset.size+1
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.nameLBL.text =  dataset[position].name
-        holder.parent.setOnClickListener {
-            Log.d("Test" , "onClick of menu item called ${dataset[position].stallId}")
-            fragment.onStallSelected(dataset[position])
+        if (position < dataset.size){
+
+            holder.nameLBL.text =  dataset[position].name
+            holder.parent.setOnClickListener {
+                Log.d("Test" , "onClick of menu item called ${dataset[position].stallId}")
+                fragment.onStallSelected(dataset[position])
+            }
         }
+        else{
+
+            holder.nameLBL.text = "Kind Store"
+            holder.parent.setOnClickListener {
+
+                fragment.onKindStoreSelected()
+            }
+        }
+
     }
 
 

@@ -12,18 +12,21 @@ import retrofit2.http.POST
 interface StallsAndMenuApi {
 
     @Headers("X-Wallet-Token: ec123dac-339b-41ba-bca4-d3cab464083d")
-    @GET("vendors")
+    @GET("wallet/vendors")
     fun getStallsAndMenu() : Call<List<StallAndMenu>>
 
     @Headers("X-Wallet-Token: ec123dac-339b-41ba-bca4-d3cab464083d", "Authorization: " + User.jwt, "Content-Type: application/json")
-    @POST("orders")
+    @POST("wallet/orders")
     fun placeOrder(@Body body: CartOrder) : Call<OrderComfirmation>
 
     @Headers("X-Wallet-Token: ec123dac-339b-41ba-bca4-d3cab464083d", "Authorization: " + User.jwt, "Content-Type: application/json")
-    @GET("orders")
+    @GET("wallet/orders")
     fun getPastOrders() : Call<List<OrderShell>>
 
     @Headers("X-Wallet-Token: ec123dac-339b-41ba-bca4-d3cab464083d", "Authorization: " + User.jwt, "Content-Type: application/json")
-    @POST("orders/make_otp_seen")
+    @POST("wallet/orders/make_otp_seen")
     fun requestOtpSeen(@Body body: RequestBody) : Call<Unit>
+
+    @GET("kind-store/items")
+    fun getKindStoreItems(): Call<Map<String,KindStoreItem>>
 }

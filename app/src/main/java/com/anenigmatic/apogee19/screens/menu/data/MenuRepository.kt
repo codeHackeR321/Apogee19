@@ -4,11 +4,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.LiveData
 import androidx.room.FtsOptions
+import com.anenigmatic.apogee19.screens.menu.data.retrofit.KindStoreItem
 import com.anenigmatic.apogee19.screens.menu.data.retrofit.Order
-import com.anenigmatic.apogee19.screens.menu.data.room.CartItem
-import com.anenigmatic.apogee19.screens.menu.data.room.OrderItem
-import com.anenigmatic.apogee19.screens.menu.data.room.Stall
-import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
+import com.anenigmatic.apogee19.screens.menu.data.room.*
 import com.example.manish.apogeewallet.screens.menu.data.room.PastOrder
 
 interface MenuRepository {
@@ -40,5 +38,9 @@ interface MenuRepository {
     fun changeOrderStatus(orderId: Int, status: String)
 
     fun refreshPastOrders()
+
+    fun getKindStoreItems(): LiveData<List<KIndStoreItemData>>
+
+    fun refreshKindStoreItems()
 
 }

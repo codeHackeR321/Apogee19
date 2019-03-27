@@ -29,6 +29,7 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
     var apiService = retrofit.create(StallsAndMenuApi::class.java)
     var pastOrderDao = database.pastOrderDao()
     var pastOrderItemDao = database.pastOrderItemsDao()
+    var kindStoreItemDao = database.kindStoreItemsDao()
 
    /* @Volatile
     private var soleInstance : MenuRepositoryImpl? = null
@@ -272,6 +273,38 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
             override fun onFailure(call: Call<List<OrderShell>>, t: Throwable) {
                 Log.d("Menu call response" , "" + t.message.toString())
             }
+        })
+    }
+
+    override fun getKindStoreItems(): LiveData<List<KIndStoreItemData>> {
+        return kindStoreItemDao.getAll()
+    }
+
+    override fun refreshKindStoreItems() {
+
+
+        val call = apiService.getKindStoreItems()
+        call.enqueue(object : Callback<Map<String, KindStoreItem>>{
+
+            override fun onResponse(call: Call<Map<String, KindStoreItem>>, response: Response<Map<String, KindStoreItem>>) {
+
+                kindStoreItemDao.deleteAll()
+
+                var responseBody = response.body()
+                var kindStoreItemsData = ArrayList<KIndStoreItemData>(responseBody!!.size)
+
+                responseBody.forEach {
+                    kindStoreItemsData.add(KIndStoreItemData(0, it.key,
+                        it.value.price, it.value.image, it.value.isAvailable))
+                }
+
+                kindStoreItemDao.insertAll(kindStoreItemsData)
+            }
+
+            override fun onFailure(call: Call<Map<String, KindStoreItem>>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
         })
     }
 
