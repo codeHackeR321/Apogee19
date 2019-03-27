@@ -64,6 +64,7 @@ class OrderHistory : Fragment() {
 
         observer = Observer {
 
+            Log.d("Test" , "Array List $it")
             var name = "Domino's"
             var totalPrice = 0
             it.forEach {item ->
@@ -76,7 +77,7 @@ class OrderHistory : Fragment() {
                     "Total Price" to totalPrice,
                     "OTP" to list[position].otp,
                     "Status" to list[position].status ,
-                    "Order List" to it.map { item -> "${item.stallId}<|>${item.name}<|>${item.price}<|>${item.quantity}" }
+                    "Order List" to it.map { item -> "${item.orderId}<|>${item.name}<|>${item.price}<|>${item.quantity}" }
                 )
             }.show(childFragmentManager , "OrderDetailDialog")
         }

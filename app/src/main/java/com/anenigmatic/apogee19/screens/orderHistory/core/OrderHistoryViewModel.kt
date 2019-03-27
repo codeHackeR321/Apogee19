@@ -2,6 +2,7 @@ package com.anenigmatic.apogee19.screens.orderHistory.core
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.anenigmatic.apogee19.ApogeeApp
@@ -14,7 +15,7 @@ class OrderHistoryViewModel(fragmentPassed: OrderHistory): ViewModel(){
 
     private var repository = ApogeeApp.menuRepository
     var orderList: LiveData<List<PastOrder>> = MutableLiveData()
-    var orderItemList: LiveData<List<OrderItem>> = MutableLiveData()
+    var orderItemList: LiveData<List<OrderItem>> = MediatorLiveData()
 
     fun getOrderListFromServer(){
 

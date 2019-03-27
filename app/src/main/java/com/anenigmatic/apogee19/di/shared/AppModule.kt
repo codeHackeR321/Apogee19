@@ -10,6 +10,8 @@ import com.anenigmatic.apogee19.screens.events.data.retrofit.EventsApi
 import com.anenigmatic.apogee19.screens.events.data.room.EventsDao
 import com.anenigmatic.apogee19.screens.events.data.storage.FilterStorage
 import com.anenigmatic.apogee19.screens.events.data.storage.FilterStorageImpl
+import com.anenigmatic.apogee19.screens.menu.data.MenuRepository
+import com.anenigmatic.apogee19.screens.menu.data.MenuRepositoryImpl
 import com.anenigmatic.apogee19.screens.shared.data.retrofit.BaseInterceptor
 import com.anenigmatic.apogee19.screens.shared.data.room.AppDatabase
 import com.anenigmatic.apogee19.screens.shared.util.NetworkDetails
@@ -23,6 +25,12 @@ import javax.inject.Singleton
 
 @Module
 class AppModule(private val application: Application) {
+
+    @Singleton
+    @Provides
+    fun providesMenuRepository(application: Application): MenuRepository {
+        return MenuRepositoryImpl(application)
+    }
 
     @Singleton
     @Provides
