@@ -35,7 +35,7 @@ class CartDialog: DialogFragment() {
     override fun onStart() {
         cartLayout.minHeight = ((parentFragment!!.view!!.height)*0.85).toInt()
         cartLayout.minWidth = ((parentFragment!!.view!!.width)*0.85).toInt()// Height of dialog is 85% of the fragment width
-        viewModel = CartViewModel(this)
+        viewModel = CartViewModel()
         viewModel!!.getCartItems()
 
         viewModel!!.cartList.observe(this , androidx.lifecycle.Observer {
