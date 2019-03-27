@@ -10,6 +10,6 @@ data class KIndStoreItemData (
     @PrimaryKey(autoGenerate = true) val id: Int,
     val name: String,
     val price: Int,
-    val image: String,
+    val image: String?,
     @ColumnInfo(name = "is_available") val isAvailable: Boolean
 )

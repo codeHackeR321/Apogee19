@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e37ad93f54c77670153fabb37cc4fd11",
+    "identityHash": "004fd65da70f085b0a13acdc7ef96fd1",
     "entities": [
       {
         "tableName": "stall",
@@ -238,7 +238,7 @@
       },
       {
         "tableName": "kind_store_items",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `price` INTEGER NOT NULL, `image` TEXT NOT NULL, `is_available` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `price` INTEGER NOT NULL, `image` TEXT, `is_available` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -262,7 +262,7 @@
             "fieldPath": "image",
             "columnName": "image",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "isAvailable",
@@ -284,7 +284,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e37ad93f54c77670153fabb37cc4fd11\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"004fd65da70f085b0a13acdc7ef96fd1\")"
     ]
   }
 }

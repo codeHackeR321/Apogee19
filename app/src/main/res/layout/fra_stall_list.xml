@@ -172,5 +172,13 @@
             app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+            android:layout_width="248dp"
+            android:layout_height="248dp" tools:srcCompat="@tools:sample/avatars"
+            android:id="@+id/imageViewCart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="invisible" android:elevation="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

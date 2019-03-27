@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,16 +19,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.anenigmatic.apogee19.R
 import com.anenigmatic.apogee19.StateClass
 import com.anenigmatic.apogee19.screens.menu.core.StallsViewModel
-import com.anenigmatic.apogee19.screens.menu.data.room.KIndStoreItemData
 import com.anenigmatic.apogee19.screens.menu.data.room.Stall
 import com.anenigmatic.apogee19.screens.menu.data.room.StallItem
 import kotlinx.android.synthetic.main.fra_stall_list.*
+import kotlinx.android.synthetic.main.fra_stall_list.view.*
 import kotlinx.android.synthetic.main.row_quantity_select.*
 
 class StallListFragment : Fragment() {
 
     var currentContext : Context? = null
     lateinit var model : StallsViewModel
+    //private var kindStoreImg: ImageView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view  = inflater.inflate(R.layout.fra_stall_list, container, false)
@@ -38,7 +40,7 @@ class StallListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-
+        //kindStoreImg = view!!.findViewById(R.id.kindStoreImg)
         model = StallsViewModel(this)
         Log.e("Test" , "ViewModel Created")
         model.loadDataFromCache()
@@ -114,13 +116,23 @@ class StallListFragment : Fragment() {
 
             recyViewMenuItems.apply {
 
-                adapter = KindStoreMenuAdapter(it)
+                adapter = KindStoreMenuAdapter(it, view!!, currentContext!!, this@StallListFragment)
                 layoutManager = LinearLayoutManager(currentContext)
             }
+            recyViewMenuItems.adapter!!.notifyDataSetChanged()
         })
 
-
         textStallNAme.text = "Kind Store"
+    }
+
+    fun kindStoreImg(url: String){
+
+//        view!!.imageViewCart.visibility = View.VISIBLE
+//        view!!.imageViewCart.bringToFront()
+
+        KindStoreDialog().apply { arguments = bundleOf("Url" to url ) }.show(childFragmentManager, "KindStore Dialog")
+
+
     }
 
     /**
