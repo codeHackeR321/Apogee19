@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 data class OrderItem(
     @PrimaryKey(autoGenerate = true) var id: Int,
     @ColumnInfo(name = "order_id") var orderId: Int,
-    @ColumnInfo(name = "item_id") var itemId: Int,
     @ColumnInfo(name = "stall_id") var stallId: Int,
+    @ColumnInfo(name = "item_id") var itemId: Int,
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "price") var price: Int,
     @ColumnInfo(name = "quantity") var quantity: Int

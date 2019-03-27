@@ -4,13 +4,13 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Room
-import com.anenigmatic.apogee19.screens.menu.data.retrofit.Order
-import com.anenigmatic.apogee19.screens.menu.data.retrofit.OrderComfirmation
+import com.anenigmatic.apogee19.screens.menu.data.retrofit.*
 import com.anenigmatic.apogee19.screens.menu.data.room.*
-import com.example.manish.apogeewallet.screens.menu.data.retrofit.CartOrder
 import com.example.manish.apogeewallet.screens.menu.data.retrofit.StallAndMenu
-import com.example.manish.apogeewallet.screens.menu.data.retrofit.StallsAndMenuApi
 import com.example.manish.apogeewallet.screens.menu.data.room.PastOrder
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +24,7 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
     var stallDao = database.stallDao()
     var stallItemDao = database.stallItemDao()
     var cartItemDao = database.cartItemDao()
-    var retrofit = Retrofit.Builder().baseUrl("http://139.59.64.214/wallet/").addConverterFactory(
+    var retrofit = Retrofit.Builder().baseUrl("http://test.bits-apogee.org/2019/wallet/").addConverterFactory(
         GsonConverterFactory.create()).build()
     var apiService = retrofit.create(StallsAndMenuApi::class.java)
     var pastOrderDao = database.pastOrderDao()
@@ -78,11 +78,11 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
 
                 var responseBody = response.body()
                 var stallList : ArrayList<Stall> = ArrayList(responseBody!!.size)
-                var menuList : ArrayList<StallItem> = ArrayList(responseBody!!.size)
+                var menuList : ArrayList<StallItem> = ArrayList(responseBody.size)
                 Log.d("Test" , "Size of response = $responseBody")
-                responseBody!!.forEach {
+                responseBody.forEach {
                     stallList.add(Stall(it.stallId , it.name , it.description , it.isClosed))
-                    it.menu!!.forEach { stallItem ->
+                    it.menu.forEach { stallItem ->
                         menuList.add(StallItem(stallItem.itemId , stallItem.stallId, stallItem.name, stallItem.price , stallItem.isAvailable))
                     }
                 }
@@ -149,6 +149,7 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
         }
 
         val cartOrder = CartOrder(orderItems)
+        Log.d("Test","Cart order: $cartOrder")
 
         var responseCode = -1
         var call = apiService.placeOrder(cartOrder)
@@ -163,7 +164,7 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
                     Log.d("Test" , "Order Placed Sucessfully")
                 }
                 else
-                    Log.d("Test" , "Order Placed UnSucessfully $responseCode")
+                    Log.d("Test" , "Order Placed UnSucessfully $responseCode error ${response.errorBody()?.string()}")
             }
 
             override fun onFailure(call: Call<OrderComfirmation>, t: Throwable) {
@@ -191,7 +192,25 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
 
     override fun changeOrderOtpStatus(orderId: Int) {
 
-        pastOrderDao.changeOtpSeenStatus(orderId, true)
+        val requestBody = JSONObject().apply {
+            put("order_id", orderId)
+        }.toRequestBody()
+
+        apiService.requestOtpSeen(requestBody)
+            .enqueue(object : Callback<Unit> {
+
+                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+
+                    if(response.code() == 200) {
+                        pastOrderDao.changeOtpSeenStatus(orderId, true)
+                    }
+                }
+
+                override fun onFailure(call: Call<Unit>, t: Throwable) {
+
+                    Log.d("OTP Response"," ${t.message}")
+                }
+            })
     }
 
     override fun changeOrderStatus(orderId: Int, status: String) {
@@ -202,9 +221,9 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
     override fun refreshPastOrders() {
 
         var call = apiService.getPastOrders()
-        call.enqueue(object : Callback<List<Order>> {
+        call.enqueue(object : Callback<List<OrderShell>> {
 
-            override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
+            override fun onResponse(call: Call<List<OrderShell>>, response: Response<List<OrderShell>>) {
 
                 if(!response.isSuccessful){
                     Log.d("Menu call response code", response.code().toString())
@@ -216,26 +235,47 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
 
                 var responseBody = response.body()
                 var orderList : ArrayList<PastOrder> = ArrayList(responseBody!!.size)
-                var orderItemList : ArrayList<OrderItem> = ArrayList(responseBody.size)
+                var responseOrderItemList : ArrayList<ResponseOrderItem> = ArrayList(responseBody.size)
+                val orderItemList: ArrayList<OrderItem> = ArrayList(responseBody.size)
+
                 Log.d("Test" , "Size of response = $responseBody")
-                responseBody.forEach {order ->
-                    order.menu.forEach {
-                        orderItemList.add(OrderItem(it.id, it.itemId, it.stallId, it.orderId, it.name, it.price, it.quantity))
+                try {
+
+                    responseBody.forEach {orderShell ->
+
+                        orderShell.order.forEach {order ->
+
+                            order.menu.forEach {
+                                responseOrderItemList.add(ResponseOrderItem(it.itemId, it.name, it.price, it.quantity))
+                                orderItemList.add(OrderItem(0, order.orderId, orderShell.shellId, it.itemId,
+                                    it.name, it.price, it.quantity ))
+                            }
+                            orderList.add(PastOrder(order.orderId , order.vendor.name , order.price, order.otp, order.status, order.showotp))
+
+                        }
+
                     }
-                    orderList.add(PastOrder(order.orderId , order.name , order.price, order.otp, order.status, order.showotp))
+
+                    Log.d("Test" , "Pass variable = $orderList")
+                    Log.d("Test" , "Pass2 variable = $responseOrderItemList")
+
+                    pastOrderDao.insertPastOrders(orderList)
+                    pastOrderItemDao.insertOrderItem(orderItemList)
 
                 }
+                catch (e: Exception){
 
-                Log.d("Test" , "Pass variable = $orderList")
-                Log.d("Test" , "Pass2 variable = $orderItemList")
-
-                pastOrderDao.insertPastOrders(orderList)
-                pastOrderItemDao.insertOrderItem(orderItemList)
+                    Log.d("Test","${e.message}")
+                }
 
             }
-            override fun onFailure(call: Call<List<Order>>, t: Throwable) {
+            override fun onFailure(call: Call<List<OrderShell>>, t: Throwable) {
                 Log.d("Menu call response" , "" + t.message.toString())
             }
         })
+    }
+
+    fun JSONObject.toRequestBody(): RequestBody {
+        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), this.toString())
     }
 }

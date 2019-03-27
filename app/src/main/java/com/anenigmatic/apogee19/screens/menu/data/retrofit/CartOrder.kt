@@ -1,5 +1,5 @@
-package com.example.manish.apogeewallet.screens.menu.data.retrofit
+package com.anenigmatic.apogee19.screens.menu.data.retrofit
 
 data class CartOrder(
-    var orderdic: Map<String,Map<String,Int>>
+    var orderdict: Map<String,Map<String,Int>>
 )
