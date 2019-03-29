@@ -1,7 +1,9 @@
 package com.anenigmatic.apogee19.screens.menu.data.retrofit
 
+import com.squareup.moshi.Json
+
 data class KindStoreItem(
-    val price: Int,
-    val image: String? = "",
-    val isAvailable: Boolean
+    @field:Json(name = "price") val price: Int,
+    @field:Json(name = "image") val image: String? = "",
+    @field:Json(name = "is_available") val isAvailable: Boolean
 )

@@ -114,6 +114,7 @@ class StallListFragment : Fragment() {
         model.getMenuListForKindStore()
         model.kindStoreList.observe(this, Observer {
 
+            Log.d("Test","Kind Store Items $it")
             recyViewMenuItems.apply {
 
                 adapter = KindStoreMenuAdapter(it, view!!, currentContext!!, this@StallListFragment)

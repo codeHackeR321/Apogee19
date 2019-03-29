@@ -66,7 +66,7 @@ class AppModule(private val application: Application) {
     @Provides
     fun providesRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://bits-apogee.org/")
+            .baseUrl("https://bits-apogee.org/2019/")
             .client(OkHttpClient().newBuilder().addInterceptor(BaseInterceptor()).build())
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -3,9 +3,11 @@ package com.anenigmatic.apogee19.screens.menu.data
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.anenigmatic.apogee19.screens.menu.data.retrofit.*
 import com.anenigmatic.apogee19.screens.menu.data.room.*
+import com.anenigmatic.apogee19.screens.shared.util.asMut
 import com.example.manish.apogeewallet.screens.menu.data.retrofit.StallAndMenu
 import com.example.manish.apogeewallet.screens.menu.data.room.PastOrder
 import okhttp3.MediaType
@@ -24,12 +26,18 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
     var stallDao = database.stallDao()
     var stallItemDao = database.stallItemDao()
     var cartItemDao = database.cartItemDao()
-    var retrofit = Retrofit.Builder().baseUrl("http://test.bits-apogee.org/2019/").addConverterFactory(
+    var retrofit = Retrofit.Builder().baseUrl("https://bits-apogee.org/2019/").addConverterFactory(
         GsonConverterFactory.create()).build()
     var apiService = retrofit.create(StallsAndMenuApi::class.java)
     var pastOrderDao = database.pastOrderDao()
     var pastOrderItemDao = database.pastOrderItemsDao()
     var kindStoreItemDao = database.kindStoreItemsDao()
+
+    val placeOrderStatus: LiveData<Int> = MutableLiveData()
+
+    init {
+        placeOrderStatus.asMut().value = -1
+    }
 
    /* @Volatile
     private var soleInstance : MenuRepositoryImpl? = null
@@ -288,21 +296,27 @@ class MenuRepositoryImpl(context: Context) : MenuRepository {
 
             override fun onResponse(call: Call<Map<String, KindStoreItem>>, response: Response<Map<String, KindStoreItem>>) {
 
-                kindStoreItemDao.deleteAll()
+                Log.d("Test","Kind Response ${response.code()}")
 
-                var responseBody = response.body()
-                var kindStoreItemsData = ArrayList<KIndStoreItemData>(responseBody!!.size)
+                if (response.isSuccessful){
 
-                responseBody.forEach {
-                    kindStoreItemsData.add(KIndStoreItemData(0, it.key,
-                        it.value.price, it.value.image, it.value.isAvailable))
+                    kindStoreItemDao.deleteAll()
+
+                    var responseBody = response.body()
+                    var kindStoreItemsData = ArrayList<KIndStoreItemData>(responseBody!!.size)
+
+                    responseBody.forEach {
+                        kindStoreItemsData.add(KIndStoreItemData(0, it.key,
+                            it.value.price, it.value.image, it.value.isAvailable))
+                    }
+
+                    kindStoreItemDao.insertAll(kindStoreItemsData)
                 }
 
-                kindStoreItemDao.insertAll(kindStoreItemsData)
             }
 
             override fun onFailure(call: Call<Map<String, KindStoreItem>>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.d("KindStore", "Kind Store Failed ${t.message}")
             }
 
         })

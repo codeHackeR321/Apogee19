@@ -35,7 +35,9 @@ class KindStoreDialog: DialogFragment(){
             Glide.with(currentContext!!).load(R.drawable.ic_question_mark_button).into(view!!.kindStoreImg)
         }
         else{
-            Glide.with(currentContext!!).load(imgUrl).into(view!!.kindStoreImg)
+            Glide.with(currentContext!!).load("https://bits-apogee.org/backend-media/$imgUrl").into(view!!.kindStoreImg).apply {
+                RequestOptions.placeholderOf(R.drawable.ic_question_mark_button).error(R.drawable.ic_question_mark_button)
+            }
         }
 
 

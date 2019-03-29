@@ -3,7 +3,6 @@ package com.anenigmatic.apogee19.screens.menu.data.room
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "kind_store_items")
 data class KIndStoreItemData (
